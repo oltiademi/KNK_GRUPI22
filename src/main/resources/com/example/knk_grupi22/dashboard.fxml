@@ -7,10 +7,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.knk_grupi22.DashboardController">
    <left>
-      <AnchorPane prefHeight="790.0" prefWidth="345.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="790.0" prefWidth="308.0" BorderPane.alignment="CENTER">
          <children>
             <Button layoutX="78.0" layoutY="256.0" mnemonicParsing="false" text="Dashboard" />
             <FontAwesomeIcon glyphName="HOME" layoutX="34.0" layoutY="282.0" size="3em" />
@@ -22,6 +21,16 @@
             <Label layoutX="67.0" layoutY="720.0" text="Sign Out">
                <font>
                   <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="94.0" layoutY="88.0" text="Welcome">
+               <font>
+                  <Font name="Tahoma Bold" size="26.0" />
+               </font>
+            </Label>
+            <Label fx:id="welcomeName" layoutX="110.0" layoutY="122.0" text="Admin">
+               <font>
+                  <Font name="Tahoma Bold" size="26.0" />
                </font>
             </Label>
          </children>
