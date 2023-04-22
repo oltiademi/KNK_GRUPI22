@@ -5,16 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-<<<<<<< Updated upstream
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-
-public class SignupController {
-    @FXML
-=======
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -31,18 +21,11 @@ public class SignupController {
     @FXML
     private TextField email;
     @FXML
->>>>>>> Stashed changes
     private Button hideBtn;
     @FXML
     private Button buttonShowPassword;
     @FXML
     private TextField textfieldPassword;
-<<<<<<< Updated upstream
-    @FXML
-    private TextField password;
-    @FXML
-    private Button signUpBtn;
-=======
 
     @FXML
     private TextField firstName;
@@ -66,7 +49,6 @@ public class SignupController {
     private Connection conn = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
->>>>>>> Stashed changes
     public void showPassword(){
         textfieldPassword.setText(password.getText());
         textfieldPassword.setVisible(true);
@@ -82,9 +64,6 @@ public class SignupController {
         buttonShowPassword.setVisible(true);
     }
 
-<<<<<<< Updated upstream
-
-=======
     public void signUp(){
         String first = firstName.getText();
         String last = lastName.getText();
@@ -122,7 +101,6 @@ public class SignupController {
 
 
     }
->>>>>>> Stashed changes
     public void switchToLogin(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 637, 425);
@@ -133,8 +111,4 @@ public class SignupController {
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         currentStage.hide();
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
