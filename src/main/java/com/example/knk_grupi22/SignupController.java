@@ -3,21 +3,25 @@ package com.example.knk_grupi22;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import service.ConnectionUtil;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class SignupController {
+public class SignupController implements Initializable {
     @FXML
     private TextField email;
     @FXML
@@ -44,6 +48,9 @@ public class SignupController {
 
     @FXML
     private Button signUpBtn;
+
+    @FXML
+    private Label phoneNumLabel;
 
     private ConnectionUtil connectionUtil;
     private Connection conn = null;
@@ -73,12 +80,12 @@ public class SignupController {
         String num = (phoneNum.getText());
 
         try {
-            if(first.isEmpty() || last.isEmpty() || Email.isEmpty() || user.isEmpty() || pw.isEmpty() || num.isEmpty()){
+            if(first.isEmpty() || last.isEmpty() || Email.isEmpty() || user.isEmpty() || pw.isEmpty() || num.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR MESSAGE");
                 alert.setContentText("All fields must be filled!");
                 alert.showAndWait();
-            }else {
+            } else {
                 conn = connectionUtil.getConnection();
                 preparedStatement = conn.prepareStatement("INSERT into users(FirstName, LastName, email, password, phoneNum, username) " +
                         "VALUES(?, ?, ?, ?, ?, ?)");
@@ -86,10 +93,16 @@ public class SignupController {
                 preparedStatement.setString(2, last);
                 preparedStatement.setString(3, Email);
                 preparedStatement.setString(4, pw);
-                preparedStatement.setString(5, String.valueOf(num));
+                preparedStatement.setString(5, num);
                 preparedStatement.setString(6, user);
+                phoneNum.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if (!newValue.matches("\\d*")) { // Check if the entered value is not a number
+                        phoneNumLabel.setText("Incorrect format");
+                    } else {
+                        phoneNumLabel.setText(""); // Clear the label if the entered value is a number
+                    }
+                });
                 preparedStatement.executeUpdate();
-
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information message");
                 alert.setContentText("Succesfully signed up");
@@ -98,8 +111,6 @@ public class SignupController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
     public void switchToLogin(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
@@ -107,8 +118,11 @@ public class SignupController {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
-
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         currentStage.hide();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 }
