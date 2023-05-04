@@ -6,4 +6,6 @@ module com.example.knk_grupi22 {
 
     opens com.example.knk_grupi22 to javafx.fxml;
     exports com.example.knk_grupi22;
+    exports controllers;
+    opens controllers to javafx.fxml;
 }

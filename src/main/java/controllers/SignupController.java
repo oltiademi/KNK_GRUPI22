@@ -1,5 +1,6 @@
-package com.example.knk_grupi22;
+package controllers;
 
+import com.example.knk_grupi22.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,13 +13,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import service.ConnectionUtil;
+import service.UserService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.ResourceBundle;
 
 public class SignupController implements Initializable {
@@ -42,15 +49,9 @@ public class SignupController implements Initializable {
 
     @FXML
     private TextField password;
-
-    @FXML
-    private TextField phoneNum;
-
     @FXML
     private Button signUpBtn;
-
-    @FXML
-    private Label phoneNumLabel;
+    UserService userService = new UserService();
 
     private ConnectionUtil connectionUtil;
     private Connection conn = null;
@@ -72,37 +73,39 @@ public class SignupController implements Initializable {
     }
 
     public void signUp(){
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16]; // Choose the desired length for your salt
+        random.nextBytes(salt);
+
+
         String first = firstName.getText();
         String last = lastName.getText();
         String Email = email.getText();
         String user = username.getText();
         String pw = password.getText();
-        String num = (phoneNum.getText());
+        String passwordToHash = pw; // Get the password from the input
+        String saltString = Base64.getEncoder().encodeToString(salt); // Encode the salt to a string for storage
+        String hashedPassword = null;
 
         try {
-            if(first.isEmpty() || last.isEmpty() || Email.isEmpty() || user.isEmpty() || pw.isEmpty() || num.isEmpty()) {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(salt);
+            byte[] hashedBytes = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
+            hashedPassword = Base64.getEncoder().encodeToString(hashedBytes);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        try {
+            if(first.isEmpty() || last.isEmpty() || Email.isEmpty() || user.isEmpty() || pw.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR MESSAGE");
                 alert.setContentText("All fields must be filled!");
                 alert.showAndWait();
             } else {
                 conn = connectionUtil.getConnection();
-                preparedStatement = conn.prepareStatement("INSERT into users(FirstName, LastName, email, password, phoneNum, username) " +
-                        "VALUES(?, ?, ?, ?, ?, ?)");
-                preparedStatement.setString(1, first);
-                preparedStatement.setString(2, last);
-                preparedStatement.setString(3, Email);
-                preparedStatement.setString(4, pw);
-                preparedStatement.setString(5, num);
-                preparedStatement.setString(6, user);
-                phoneNum.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if (!newValue.matches("\\d*")) { // Check if the entered value is not a number
-                        phoneNumLabel.setText("Incorrect format");
-                    } else {
-                        phoneNumLabel.setText(""); // Clear the label if the entered value is a number
-                    }
-                });
-                preparedStatement.executeUpdate();
+                userService.signUp(user, pw);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information message");
                 alert.setContentText("Succesfully signed up");

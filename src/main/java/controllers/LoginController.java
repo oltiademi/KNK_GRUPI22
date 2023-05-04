@@ -1,5 +1,6 @@
-package com.example.knk_grupi22;
+package controllers;
 
+import com.example.knk_grupi22.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
