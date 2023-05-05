@@ -9,12 +9,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import org.w3c.dom.events.MouseEvent;
 import service.ConnectionUtil;
-
+import service.PasswordHasher;
+import service.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -45,6 +43,7 @@ public class LoginController implements Initializable {
     private Connection conn = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
+    UserService userService = new UserService();
 
     public void showPassword(){
         textfieldPassword.setText(tf_Password.getText());
@@ -60,21 +59,20 @@ public class LoginController implements Initializable {
         hideBtn.setVisible(false);
     }
     public void Login(ActionEvent actionEvent) throws IOException, SQLException {
-        if(actionEvent.getSource() == login_Btn){
+        if(actionEvent.getSource() == login_Btn) {
             String user = tf_Username.getText();
             String pw = tf_Password.getText();
-            conn = ConnectionUtil.getConnection();
-            preparedStatement = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
-            preparedStatement.setString(1, user);
-            preparedStatement.setString(2, pw);
-            resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            if(user.isEmpty() || pw.isEmpty()) {
+                System.out.println("ERROR");
+            }else{
+                userService.login(user, pw);
                 FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
                 Parent dashboardRoot = fxmlLoader1.load();
                 // Create a Scene for the dashboard
-                Scene scene = new Scene(dashboardRoot, 1540, 790);
+                Scene scene = new Scene(dashboardRoot, 1300, 700);
                 // Create a Stage for the dashboard
                 Stage stage = new Stage();
+                stage.setTitle("Dashboard");
                 stage.setScene(scene);
 
                 // Hide the current window
@@ -83,13 +81,9 @@ public class LoginController implements Initializable {
 
                 // Show the dashboard window
                 stage.show();
-            }else{
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ERROR MESSAGE");
-                alert.setContentText("Incorrect password/username");
-                alert.showAndWait();
             }
         }
+
     }
     public void switchToSignUp(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("sign-up.fxml"));

@@ -17,15 +17,10 @@ import service.UserService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Base64;
 import java.util.ResourceBundle;
 
 public class SignupController implements Initializable {
@@ -73,29 +68,12 @@ public class SignupController implements Initializable {
     }
 
     public void signUp(){
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16]; // Choose the desired length for your salt
-        random.nextBytes(salt);
-
 
         String first = firstName.getText();
         String last = lastName.getText();
         String Email = email.getText();
         String user = username.getText();
         String pw = password.getText();
-        String passwordToHash = pw; // Get the password from the input
-        String saltString = Base64.getEncoder().encodeToString(salt); // Encode the salt to a string for storage
-        String hashedPassword = null;
-
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(salt);
-            byte[] hashedBytes = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
-            hashedPassword = Base64.getEncoder().encodeToString(hashedBytes);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-
 
         try {
             if(first.isEmpty() || last.isEmpty() || Email.isEmpty() || user.isEmpty() || pw.isEmpty()) {
@@ -104,10 +82,8 @@ public class SignupController implements Initializable {
                 alert.setContentText("All fields must be filled!");
                 alert.showAndWait();
             } else {
-                conn = connectionUtil.getConnection();
-                userService.signUp(user, pw);
+                userService.signUp(first, last, Email, user, pw);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information message");
                 alert.setContentText("Succesfully signed up");
                 alert.showAndWait();
             }

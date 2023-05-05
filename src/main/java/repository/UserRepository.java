@@ -20,12 +20,15 @@ import java.util.List;
 public class UserRepository implements UserRepositoryInterface {
 
     public User insert(CreateUserDto user) throws SQLException {
-        String sql = "INSERT into users(FirstName, LastName, email,username, password, salt, saltedHash) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT into users(FirstName, LastName, email,username, salt, saltedHash) VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = ConnectionUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, user.getUsername());
-        statement.setString(2, user.getSaltedPassword());
-        statement.setString(3, user.getSalt());
+        statement.setString(1, user.getFirstName());
+        statement.setString(2, user.getLastName());
+        statement.setString(3, user.getEmail());
+        statement.setString(4, user.getUsername());
+        statement.setString(5, user.getSalt());
+        statement.setString(6, user.getSaltedPassword());
         statement.executeUpdate();
 
         return UserRepository.getByUsername(user.getUsername());
@@ -49,10 +52,9 @@ public class UserRepository implements UserRepositoryInterface {
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String saltedHash = resultSet.getString("salted_hash");
+                String saltedHash = resultSet.getString("saltedHash");
                 String salt = resultSet.getString("salt");
-                return new User(id, username, saltedHash, salt);
+                return new User(username, saltedHash, salt);
             } else {
                 return null;
             }
@@ -80,10 +82,9 @@ public class UserRepository implements UserRepositoryInterface {
         while(resultSet.next()){
             users.add(
                     new User(
-                            resultSet.getInt(1),
+                            resultSet.getString(1),
                             resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4)
+                            resultSet.getString(3)
                     )
             );
         }

@@ -1,20 +1,14 @@
 package models;
 
 public class User {
-    private int id;
     private String username;
     private String saltedPassword;
     private String salt;
 
-    public User(int id, String username, String saltedPassword, String salt) {
-        this.id = id;
+    public User( String username, String saltedPassword, String salt) {
         this.username = username;
         this.saltedPassword = saltedPassword;
         this.salt = salt;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getUsername() {

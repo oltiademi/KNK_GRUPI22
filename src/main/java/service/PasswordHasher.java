@@ -26,10 +26,10 @@ public class PasswordHasher {
 
         byte [] saltBytes = salt.getBytes();
         for (int i = 0; i < saltBytes.length; i++) {
-            sb.append(String.format("%02x", saltBytes[i]));
+            sb.append(String.format("%02X", saltBytes[i]));
         }
         for (int i = 0; i < hash.length; i++) {
-            sb.append(String.format("%02x", hash[i]));
+            sb.append(String.format("%02X", hash[i]));
         }
         return sb.toString();
     }

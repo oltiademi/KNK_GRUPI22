@@ -43,7 +43,7 @@
                <graphic>
                   <FontAwesomeIcon glyphName="EYE" />
                </graphic></Button>
-            <TextField fx:id="textfieldPassword" layoutX="76.0" layoutY="168.0" onAction="#showPassword" prefHeight="26.0" prefWidth="151.0" visible="false" />
+            <TextField fx:id="textfieldPassword" layoutX="75.0" layoutY="168.0" onAction="#showPassword" prefHeight="26.0" prefWidth="151.0" styleClass="btn" stylesheets="@../../../css/signup.css" visible="false" />
             <Button fx:id="hideBtn" layoutX="201.0" layoutY="168.0" mnemonicParsing="false" onAction="#hidePassword" prefHeight="26.0" prefWidth="14.0" style="-fx-cursor: hand; -fx-background-color: transparent;" visible="false">
                <graphic>
                   <FontAwesomeIcon glyphName="EYE" />
@@ -70,3 +70,6 @@
       </AnchorPane>
    </center>
 </BorderPane>
+
+
+
