@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
@@ -20,6 +21,19 @@ import java.sql.ResultSet;
 public class DashboardController {
     @FXML
     private Button logout_Btn;
+    @FXML
+    private Button dashboard_Btn;
+    @FXML
+    private Button manage_Btn;
+    @FXML
+    private Button dashboard_Btn1;
+    @FXML
+    private Button manage_Btn1;
+    @FXML
+    private AnchorPane dashboardPane;
+
+    @FXML
+    private AnchorPane managePane;
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
@@ -52,6 +66,21 @@ public class DashboardController {
             }else{
                 return;
             }
+        }
+    }
+    public void switchForm(ActionEvent actionEvent){
+        if(actionEvent.getSource() == dashboard_Btn){
+            dashboardPane.setVisible(true);
+            managePane.setVisible(false);
+        }else if(actionEvent.getSource() == manage_Btn){
+            dashboardPane.setVisible(false);
+            managePane.setVisible(true);
+        }else if(actionEvent.getSource() == dashboard_Btn1){
+            dashboardPane.setVisible(true);
+            managePane.setVisible(false);
+        }else if(actionEvent.getSource() == manage_Btn1){
+            dashboardPane.setVisible(false);
+            managePane.setVisible(true);
         }
     }
 }
