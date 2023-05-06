@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import models.User;
 import service.ConnectionUtil;
 import service.PasswordHasher;
 import service.UserService;
@@ -60,31 +61,40 @@ public class LoginController implements Initializable {
     }
     public void Login(ActionEvent actionEvent) throws IOException, SQLException {
         if(actionEvent.getSource() == login_Btn) {
-            String user = tf_Username.getText();
-            String pw = tf_Password.getText();
-            if(user.isEmpty() || pw.isEmpty()) {
-                System.out.println("ERROR");
-            }else{
-                userService.login(user, pw);
-                FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
-                Parent dashboardRoot = fxmlLoader1.load();
-                // Create a Scene for the dashboard
-                Scene scene = new Scene(dashboardRoot, 1300, 700);
-                // Create a Stage for the dashboard
-                Stage stage = new Stage();
-                stage.setTitle("Dashboard");
-                stage.setScene(scene);
 
-                // Hide the current window
-                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                currentStage.hide();
+                String user = tf_Username.getText();
+                String pw = tf_Password.getText();
+                if(user.isEmpty() || pw.isEmpty()) {
+                    System.out.println("ERROR");
+                }else{
 
-                // Show the dashboard window
-                stage.show();
+                        if(userService.login(user, pw) == null){
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("ERROR!");
+                            alert.setContentText("Incorrect username/password");
+                            alert.showAndWait();
+                        }else {
+                            FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
+                            Parent dashboardRoot = fxmlLoader1.load();
+                            // Create a Scene for the dashboard
+                            Scene scene = new Scene(dashboardRoot, 1300, 700);
+                            // Create a Stage for the dashboard
+                            Stage stage = new Stage();
+                            stage.setTitle("Dashboard");
+                            stage.setScene(scene);
+
+                            // Hide the current window
+                            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                            currentStage.hide();
+
+                            // Show the dashboard window
+                            stage.show();
+                        }
+                }
             }
         }
 
-    }
+
     public void switchToSignUp(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("sign-up.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 750, 400);
