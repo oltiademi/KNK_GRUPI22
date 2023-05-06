@@ -46,11 +46,11 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     public static User getByUsername(String username) throws SQLException {
-        String sql = "SELECT * FROM users WHERE username=?";
+        String sql = "SELECT * FROM users WHERE username = ?";
         try (Connection connection = ConnectionUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, username);
-            ResultSet resultSet = statement.executeQuery();
+             PreparedStatement statement = connection.prepareStatement(sql)){
+             statement.setString(1, username);
+             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 String saltedHash = resultSet.getString("saltedHash");
                 String salt = resultSet.getString("salt");

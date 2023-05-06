@@ -23,16 +23,15 @@ public class UserService implements UserServiceInterface {
 
     public User login(String username, String password) throws SQLException {
         User loginUser = UserRepository.getByUsername(username);
-        if(loginUser == null){
+        if (loginUser == null) {
             return null;
         }
         boolean isPasswordCorrect = PasswordHasher.compareSaltedHash(
-                password, loginUser.getSalt(), loginUser.getSaltedPassword()
-        );
-        if(isPasswordCorrect){
-            return loginUser;
-        }
-
+                    password, loginUser.getSalt(), loginUser.getSaltedPassword()
+            );
+        if (isPasswordCorrect) {
+                return loginUser;
+            }
         return null;
     }
 

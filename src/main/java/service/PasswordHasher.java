@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.Objects;
 
 public class PasswordHasher {
     private static final int SALT_LENGTH = 32; // length of salt in bytes
@@ -35,13 +36,8 @@ public class PasswordHasher {
     }
 
     public static boolean compareSaltedHash(String password, String salt, String saltedHash) {
-        byte[] expectedHash = new byte[HASH_LENGTH];
-        for (int i = 0; i < HASH_LENGTH; i++) {
-            int index = (SALT_LENGTH + i) * 2;
-            expectedHash[i] = (byte) Integer.parseInt(saltedHash.substring(index, index + 2), 16);
-        }
-        byte[] actualHash = hashWithSalt(password, salt);
-        return MessageDigest.isEqual(expectedHash, actualHash);
+        String actualHash = generateSaltedHash(password, salt);
+        return Objects.equals(saltedHash, actualHash);
     }
 
     private static byte[] hashWithSalt(String password, String salt) {
