@@ -128,18 +128,25 @@ public class DashboardController implements Initializable {
     public void listaDrejtimev(){
         comboBox_Titulli.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                if (newValue.equals("Baçelor(BSc)")) {
+                if(newValue.equals("Baçelor(BSc)")) {
                     comboBox_Drejtimi.getItems().clear();
                     comboBox_Drejtimi.getItems().addAll(drejtimetBSc);
+                    comboBox_Drejtimi.setValue("Inxhinieri Kompjuterike dhe Softuerike");
                 } else if(newValue.equals("Master(MSc)")){
                     comboBox_Drejtimi.getItems().clear();
                     comboBox_Drejtimi.getItems().addAll(drejtimetMsc);
+                    comboBox_Drejtimi.setValue("Inxhinieri Kompjuterike dhe Softuerike");
                 } else if(newValue.equals("Doktoraturë(PHD)")){
                     comboBox_Drejtimi.getItems().clear();
                     comboBox_Drejtimi.getItems().addAll(drejtimetPHD);
+                    comboBox_Drejtimi.setValue("Inxhinieri Kompjuterike dhe Softuerike");
                 } else {
                     clearEmployed();
                 }
+            }
+            if(newValue == null){
+                comboBox_Drejtimi.setValue(null);
+                comboBox_Titulli.setValue(null);
             }
         });
     }
