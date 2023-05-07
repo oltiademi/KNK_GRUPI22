@@ -1,7 +1,7 @@
 package models;
 
 public class Employed {
-}
+
     String emri;
     String mbiemri;
     String gjinia;

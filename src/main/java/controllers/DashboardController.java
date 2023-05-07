@@ -23,6 +23,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -109,10 +110,37 @@ public class DashboardController implements Initializable {
 
     @FXML
     private TextField tf_Profesioni;
+    private String[] titujt= {"Baçelor(BSc)", "Master(MSc)", "Doktoraturë(PHD)"};
+    private String[] drejtimetBSc = {"Inxhinieri Kompjuterike dhe Softuerike", "Elektronikë, Automatikë dhe Robotikë", "Teknologjite e Informacionit dhe Komunikimit", "Elektroenergjetike"};
+    private String[] drejtimetMsc = {"Inxhinieri Kompjuterike dhe Softuerike", "Elektronikë, Automatikë dhe Robotikë", "Teknologjite e Informacionit dhe Komunikimit"};
+    private String[] drejtimetPHD = {"Inxhinieri Kompjuterike dhe Softuerike"};
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
+    public void listaTitujve(){
+        ArrayList<String> listaTitujv = new ArrayList<>();
+        for(String i: titujt){
+            listaTitujv.add(i);
+        }
+        ObservableList ob = FXCollections.observableArrayList(listaTitujv);
+        comboBox_Titulli.setItems(ob);
+    }
+    public void listaDrejtimev(){
+        ArrayList<String> listaDrejtimev = new ArrayList<>();
+        comboBox_Titulli.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("Baçelor(BSc)")) {
+                comboBox_Drejtimi.getItems().clear();
+                comboBox_Drejtimi.getItems().addAll(drejtimetBSc);
+            } else if(newValue.equals("Master(MSc)")){
+                comboBox_Drejtimi.getItems().clear();
+                comboBox_Drejtimi.getItems().addAll(drejtimetMsc);
+            }else{
+                comboBox_Drejtimi.getItems().clear();
+                comboBox_Drejtimi.getItems().addAll(drejtimetPHD);
+            }
+        });
+    }
     public void logout() throws IOException {
         {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -220,10 +248,11 @@ public class DashboardController implements Initializable {
         comboBox_Drejtimi.setValue(String.valueOf(employed.getDrejtimi()));
         comboBox_Titulli.setValue(String.valueOf(employed.getTitulli()));
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showEmployedListData();
         comboBox_Titulli.setStyle("-fx-font-size: 15px;");
+        listaTitujve();
+        listaDrejtimev();
     }
 }

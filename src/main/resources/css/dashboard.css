@@ -40,3 +40,15 @@
     -fx-font-family: "Tahoma";
     -fx-font-size: 15px;
 }
+.nav-button{
+    -fx-background-color:  linear-gradient(to left, #373B44, #4286f4);
+    -fx-cursor: hand;
+}
+.combo-box{
+         -fx-border-color: "#109152";
+         -fx-border-radius: 55px;
+         -fx-background-radius: 100px;
+         -fx-font-size: 15px;
+         -fx-font-weight: bold;
+}
+
