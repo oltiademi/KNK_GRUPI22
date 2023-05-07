@@ -28,10 +28,10 @@ import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
     @FXML
-    private ComboBox<?> comboBox_Drejtimi;
+    private ComboBox<String> comboBox_Drejtimi;
 
     @FXML
-    private ComboBox<?> comboBox_Titulli;
+    private ComboBox<String> comboBox_Titulli;
 
     @FXML
     private AnchorPane dashboardPane;
@@ -205,9 +205,25 @@ public class DashboardController implements Initializable {
 
         tableView_Employed.setItems(empList);
     }
+    public void showDataOnTextfields(){
+        Employed employed = tableView_Employed.getSelectionModel().getSelectedItem();
+        int n = tableView_Employed.getSelectionModel().getSelectedIndex();
+
+        if((n-1) < -1){
+            return;
+        }
+
+        tf_Emri.setText(String.valueOf(employed.getEmri()));
+        tf_Mbiemri.setText(String.valueOf(employed.getMbiemri()));
+        tf_Kompania.setText(String.valueOf(employed.getKompania()));
+        tf_Profesioni.setText(String.valueOf(employed.getProfesioni()));
+        comboBox_Drejtimi.setValue(String.valueOf(employed.getDrejtimi()));
+        comboBox_Titulli.setValue(String.valueOf(employed.getTitulli()));
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showEmployedListData();
+        comboBox_Titulli.setStyle("-fx-font-size: 15px;");
     }
 }
