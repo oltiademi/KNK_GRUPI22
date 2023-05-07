@@ -18,11 +18,9 @@ import models.Employed;
 import service.ConnectionUtil;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -116,6 +114,7 @@ public class DashboardController implements Initializable {
     private String[] drejtimetPHD = {"Inxhinieri Kompjuterike dhe Softuerike"};
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
+    private Statement statement = null;
     private ResultSet resultSet = null;
 
     public void listaTitujve(){
@@ -127,17 +126,20 @@ public class DashboardController implements Initializable {
         comboBox_Titulli.setItems(ob);
     }
     public void listaDrejtimev(){
-        ArrayList<String> listaDrejtimev = new ArrayList<>();
         comboBox_Titulli.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals("Baçelor(BSc)")) {
-                comboBox_Drejtimi.getItems().clear();
-                comboBox_Drejtimi.getItems().addAll(drejtimetBSc);
-            } else if(newValue.equals("Master(MSc)")){
-                comboBox_Drejtimi.getItems().clear();
-                comboBox_Drejtimi.getItems().addAll(drejtimetMsc);
-            }else{
-                comboBox_Drejtimi.getItems().clear();
-                comboBox_Drejtimi.getItems().addAll(drejtimetPHD);
+            if (newValue != null) {
+                if (newValue.equals("Baçelor(BSc)")) {
+                    comboBox_Drejtimi.getItems().clear();
+                    comboBox_Drejtimi.getItems().addAll(drejtimetBSc);
+                } else if(newValue.equals("Master(MSc)")){
+                    comboBox_Drejtimi.getItems().clear();
+                    comboBox_Drejtimi.getItems().addAll(drejtimetMsc);
+                } else if(newValue.equals("Doktoraturë(PHD)")){
+                    comboBox_Drejtimi.getItems().clear();
+                    comboBox_Drejtimi.getItems().addAll(drejtimetPHD);
+                } else {
+                    clearEmployed();
+                }
             }
         });
     }
@@ -166,8 +168,6 @@ public class DashboardController implements Initializable {
 
                 // Show the dashboard window
                 stage.show();
-            } else {
-                return;
             }
         }
     }
@@ -264,61 +264,109 @@ public class DashboardController implements Initializable {
         Alert alert;
         connection = ConnectionUtil.getConnection();
 
-                try{
-                    if(tf_Emri.getText().isEmpty()
+        try{
+            if(tf_Emri.getText().isEmpty()
                     || tf_Mbiemri.getText().isEmpty()
                     || tf_Profesioni.getText().isEmpty()
                     || tf_Kompania.getText().isEmpty()
-                            || comboBox_Titulli.getSelectionModel().getSelectedItem() == null
-                            || comboBox_Drejtimi.getSelectionModel().getSelectedItem() == null
-                            || radio_Mashkull == null
-                            || radio_Femer == null
-                            || radio_Other == null){
-                        alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("ERROR");
+                    || comboBox_Titulli.getSelectionModel().getSelectedItem() == null
+                    || comboBox_Drejtimi.getSelectionModel().getSelectedItem() == null
+                    || radio_Mashkull == null
+                    || radio_Femer == null
+                    || radio_Other == null){
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR");
+                alert.setHeaderText(null);
+                alert.setContentText("Fill all blank fields!");
+                alert.showAndWait();
+            }
+            else {
+                preparedStatement = connection.prepareStatement(ekziston);
+                resultSet = preparedStatement.executeQuery();
+                if(resultSet.next()){
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("ERROR");
+                    alert.setHeaderText(null);
+                    alert.setContentText("User exists!");
+                    alert.showAndWait();
+                }else {
+                    String gjinia = "";
+                    RadioButton selectedRadioButton = (RadioButton) gjiniaToggleGroup.getSelectedToggle();
+                    if (selectedRadioButton != null) {
+                        gjinia = selectedRadioButton.getText();
+
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setString(1, tf_Emri.getText());
+                        preparedStatement.setString(2, tf_Mbiemri.getText());
+                        preparedStatement.setString(3, gjinia);
+                        preparedStatement.setString(4, comboBox_Titulli.getSelectionModel().getSelectedItem());
+                        preparedStatement.setString(5, comboBox_Drejtimi.getSelectionModel().getSelectedItem());
+                        preparedStatement.setString(6, tf_Profesioni.getText());
+                        preparedStatement.setString(7, tf_Kompania.getText());
+                        preparedStatement.executeUpdate();
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Information");
                         alert.setHeaderText(null);
-                        alert.setContentText("Fill all blank fields!");
+                        alert.setContentText("Added succesfully!");
                         alert.showAndWait();
+                        showEmployedListData();
                     }
-                    else {
-                        preparedStatement = connection.prepareStatement(ekziston);
-                        resultSet = preparedStatement.executeQuery();
-                            if(resultSet.next()){
-                                alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setTitle("ERROR");
-                                alert.setHeaderText(null);
-                                alert.setContentText("User exists!");
-                                alert.showAndWait();
-                            }else {
-                                String gjinia = "";
-                                RadioButton selectedRadioButton = (RadioButton) gjiniaToggleGroup.getSelectedToggle();
-                                if (selectedRadioButton != null) {
-                                    gjinia = selectedRadioButton.getText();
-
-                                    preparedStatement = connection.prepareStatement(sql);
-                                    preparedStatement.setString(1, tf_Emri.getText());
-                                    preparedStatement.setString(2, tf_Mbiemri.getText());
-                                    preparedStatement.setString(3, gjinia);
-                                    preparedStatement.setString(4, comboBox_Titulli.getSelectionModel().getSelectedItem());
-                                    preparedStatement.setString(5, comboBox_Drejtimi.getSelectionModel().getSelectedItem());
-                                    preparedStatement.setString(6, tf_Profesioni.getText());
-                                    preparedStatement.setString(7, tf_Kompania.getText());
-                                    preparedStatement.executeUpdate();
-                                    alert = new Alert(Alert.AlertType.INFORMATION);
-                                    alert.setTitle("Information");
-                                    alert.setHeaderText(null);
-                                    alert.setContentText("Added succesfully!");
-                                    alert.showAndWait();
-                                    showEmployedListData();
-                                }
-                            }
-                        }
-                    }
-        catch (SQLException e){
-                    e.printStackTrace();
                 }
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
+    public void clearEmployed(){
+        tf_Emri.setText("");
+        tf_Mbiemri.setText("");
+        gjiniaToggleGroup.selectToggle(null);
+        comboBox_Drejtimi.getSelectionModel().clearSelection();
+        comboBox_Titulli.getSelectionModel().clearSelection();
+        tf_Profesioni.setText("");
+        tf_Kompania.setText("");
+    }
+    public void deleteEmployed() throws SQLException {
+        String sql = "DELETE FROM employed WHERE emri = '" + tf_Emri.getText() + "' AND mbiemri = '" + tf_Mbiemri.getText() + "'";
+        connection = ConnectionUtil.getConnection();
 
+        String gjinia = "";
+        RadioButton selectedRadioButton = (RadioButton) gjiniaToggleGroup.getSelectedToggle();
+        if (selectedRadioButton != null) {
+            if(tf_Emri.getText().isEmpty()
+                    || tf_Mbiemri.getText().isEmpty()
+                    || tf_Profesioni.getText().isEmpty()
+                    || tf_Kompania.getText().isEmpty()
+                    || comboBox_Titulli.getSelectionModel().getSelectedItem() == null
+                    || comboBox_Drejtimi.getSelectionModel().getSelectedItem() == null
+                    || selectedRadioButton.equals(null)){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR");
+                alert.setHeaderText(null);
+                alert.setContentText("Fill all blank fields!");
+                alert.showAndWait();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("CONFIRMATION");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to delete this user?");
+                Optional<ButtonType> optionalButtonType = alert.showAndWait();
+                if(optionalButtonType.get().equals(ButtonType.OK)){
+                    statement = connection.createStatement();
+                    statement.executeUpdate(sql);
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("INFORMATION");
+                    alert1.setHeaderText(null);
+                    alert1.setContentText("User deleted succesfully!");
+                    alert1.showAndWait();
+                    showEmployedListData();
+                    clearEmployed();
+                }
+            }
+        }
+
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showEmployedListData();

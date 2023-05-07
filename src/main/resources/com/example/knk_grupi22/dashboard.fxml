@@ -309,7 +309,7 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="fshijButoni" layoutX="363.0" layoutY="598.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Fshij" textFill="RED">
+                        <Button fx:id="fshijButoni" layoutX="363.0" layoutY="598.0" mnemonicParsing="false" onAction="#deleteEmployed" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Fshij" textFill="RED">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
