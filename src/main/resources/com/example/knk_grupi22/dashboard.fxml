@@ -231,13 +231,13 @@
                            <children>
                               <TableView fx:id="tableView_Employed" layoutX="7.0" layoutY="69.0" onMouseClicked="#showDataOnTextfields" prefHeight="237.0" prefWidth="1002.0" styleClass="table" stylesheets="@../../../css/dashboard.css">
                                  <columns>
-                                    <TableColumn fx:id="tableView_Emri" prefWidth="124.00003051757812" style="-fx-text-alignment: center;" text="Emri" />
-                                    <TableColumn fx:id="tableView_Mbiemri" prefWidth="126.39996337890625" text="Mbiemri" />
-                                    <TableColumn fx:id="tableView_Gjinia" prefWidth="87.20001220703125" text="Gjinia" />
-                                    <TableColumn fx:id="tableView_Titulli" prefWidth="128.0" text="Titulli" />
-                                    <TableColumn fx:id="tableView_Drejtimi" prefWidth="169.5999755859375" text="Drejtimi" />
-                                    <TableColumn fx:id="tableView_Profesioni" prefWidth="197.60009765625" text="Profesioni" />
-                                    <TableColumn fx:id="tableView_Kompania" prefWidth="166.39990234375" text="Kompania" />
+                                    <TableColumn fx:id="tableView_Emri" prefWidth="110.39999389648438" style="-fx-text-alignment: center;" text="Emri" />
+                                    <TableColumn fx:id="tableView_Mbiemri" prefWidth="116.80001831054688" text="Mbiemri" />
+                                    <TableColumn fx:id="tableView_Gjinia" prefWidth="88.80001831054688" text="Gjinia" />
+                                    <TableColumn fx:id="tableView_Titulli" prefWidth="130.39996337890625" text="Titulli" />
+                                    <TableColumn fx:id="tableView_Drejtimi" prefWidth="266.4000244140625" text="Drejtimi" />
+                                    <TableColumn fx:id="tableView_Profesioni" prefWidth="150.40008544921875" text="Profesioni" />
+                                    <TableColumn fx:id="tableView_Kompania" prefWidth="140.800048828125" text="Kompania" />
                                  </columns>
                               </TableView>
                               <TextField alignment="CENTER_RIGHT" layoutX="671.0" layoutY="18.0" prefHeight="36.0" prefWidth="335.0" promptText="Search" styleClass="textfield" stylesheets="@../../../css/dashboard.css">

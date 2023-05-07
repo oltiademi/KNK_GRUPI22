@@ -16,7 +16,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Employed;
 import service.ConnectionUtil;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -72,6 +71,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     private RadioButton radio_Other;
+    private ToggleGroup gjiniaToggleGroup;
 
     @FXML
     private Button shtoButoni;
@@ -176,6 +176,7 @@ public class DashboardController implements Initializable {
         if (actionEvent.getSource() == dashboard_Btn) {
             dashboardPane.setVisible(true);
             managePane.setVisible(false);
+
         } else if (actionEvent.getSource() == manage_Btn) {
             dashboardPane.setVisible(false);
             managePane.setVisible(true);
@@ -183,6 +184,7 @@ public class DashboardController implements Initializable {
         } else if (actionEvent.getSource() == dashboard_Btn1) {
             dashboardPane.setVisible(true);
             managePane.setVisible(false);
+
         } else if (actionEvent.getSource() == manage_Btn1) {
             dashboardPane.setVisible(false);
             managePane.setVisible(true);
@@ -247,6 +249,14 @@ public class DashboardController implements Initializable {
         tf_Profesioni.setText(String.valueOf(employed.getProfesioni()));
         comboBox_Drejtimi.setValue(String.valueOf(employed.getDrejtimi()));
         comboBox_Titulli.setValue(String.valueOf(employed.getTitulli()));
+
+        if (employed.getGjinia().equals("Mashkull")) {
+            radio_Mashkull.setSelected(true);
+        } else if (employed.getGjinia().equals("Femër")) {
+            radio_Femer.setSelected(true);
+        } else {
+            radio_Other.setSelected(true);
+        }
     }
     public void addEmployed() throws SQLException {
         String sql = "INSERT INTO employed (emri,mbiemri,gjinia,titulli,drejtimi,profesioni,kompania) VALUES (?,?,?,?,?,?,?)";
@@ -280,21 +290,27 @@ public class DashboardController implements Initializable {
                                 alert.setContentText("User exists!");
                                 alert.showAndWait();
                             }else {
-                                preparedStatement = connection.prepareStatement(sql);
-                                preparedStatement.setString(1, tf_Emri.getText());
-                                preparedStatement.setString(2, tf_Mbiemri.getText());
-                                preparedStatement.setString(3, radio_Mashkull.getText());
-                                preparedStatement.setString(4, comboBox_Titulli.getSelectionModel().getSelectedItem());
-                                preparedStatement.setString(5, comboBox_Drejtimi.getSelectionModel().getSelectedItem());
-                                preparedStatement.setString(6, tf_Profesioni.getText());
-                                preparedStatement.setString(7, tf_Kompania.getText());
-                                preparedStatement.executeUpdate();
-                                alert = new Alert(Alert.AlertType.INFORMATION);
-                                alert.setTitle("Information");
-                                alert.setHeaderText(null);
-                                alert.setContentText("Added succesfully!");
-                                alert.showAndWait();
-                                showEmployedListData();
+                                String gjinia = "";
+                                RadioButton selectedRadioButton = (RadioButton) gjiniaToggleGroup.getSelectedToggle();
+                                if (selectedRadioButton != null) {
+                                    gjinia = selectedRadioButton.getText();
+
+                                    preparedStatement = connection.prepareStatement(sql);
+                                    preparedStatement.setString(1, tf_Emri.getText());
+                                    preparedStatement.setString(2, tf_Mbiemri.getText());
+                                    preparedStatement.setString(3, gjinia);
+                                    preparedStatement.setString(4, comboBox_Titulli.getSelectionModel().getSelectedItem());
+                                    preparedStatement.setString(5, comboBox_Drejtimi.getSelectionModel().getSelectedItem());
+                                    preparedStatement.setString(6, tf_Profesioni.getText());
+                                    preparedStatement.setString(7, tf_Kompania.getText());
+                                    preparedStatement.executeUpdate();
+                                    alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Information");
+                                    alert.setHeaderText(null);
+                                    alert.setContentText("Added succesfully!");
+                                    alert.showAndWait();
+                                    showEmployedListData();
+                                }
                             }
                         }
                     }
@@ -309,5 +325,9 @@ public class DashboardController implements Initializable {
         comboBox_Titulli.setStyle("-fx-font-size: 15px;");
         listaTitujve();
         listaDrejtimev();
+        gjiniaToggleGroup = new ToggleGroup();
+        radio_Femer.setToggleGroup(gjiniaToggleGroup);
+        radio_Mashkull.setToggleGroup(gjiniaToggleGroup);
+        radio_Other.setToggleGroup(gjiniaToggleGroup);
     }
 }
