@@ -9,4 +9,5 @@ module com.example.knk_grupi22 {
     exports com.example.knk_grupi22;
     exports controllers;
     opens controllers to javafx.fxml;
+    opens models to javafx.base;
 }
