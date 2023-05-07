@@ -304,17 +304,17 @@
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font></TextField>
-                        <Button fx:id="shtoButoni" layoutX="69.0" layoutY="598.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Shto" textFill="#109152">
+                        <Button fx:id="shtoButoni" layoutX="69.0" layoutY="598.0" mnemonicParsing="false" onAction="#addEmployed" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Shto" textFill="#109152">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="fshijButoni" layoutX="363.0" layoutY="598.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Fshij" textFill="RED">
+                        <Button fx:id="fshijButoni" layoutX="363.0" layoutY="598.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Fshij" textFill="RED">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="perditesoButoni" layoutX="656.0" layoutY="599.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Përditëso" textFill="#00dfff">
+                        <Button fx:id="perditesoButoni" layoutX="656.0" layoutY="599.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Përditëso" textFill="#00dfff">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>

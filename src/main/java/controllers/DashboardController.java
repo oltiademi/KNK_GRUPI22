@@ -248,6 +248,61 @@ public class DashboardController implements Initializable {
         comboBox_Drejtimi.setValue(String.valueOf(employed.getDrejtimi()));
         comboBox_Titulli.setValue(String.valueOf(employed.getTitulli()));
     }
+    public void addEmployed() throws SQLException {
+        String sql = "INSERT INTO employed (emri,mbiemri,gjinia,titulli,drejtimi,profesioni,kompania) VALUES (?,?,?,?,?,?,?)";
+        String ekziston = "SELECT emri, mbiemri, gjinia, titulli, drejtimi, profesioni, kompania FROM employed WHERE emri = '" + tf_Emri.getText() + "' AND mbiemri = '" + tf_Mbiemri.getText()+"'";
+        Alert alert;
+        connection = ConnectionUtil.getConnection();
+
+                try{
+                    if(tf_Emri.getText().isEmpty()
+                    || tf_Mbiemri.getText().isEmpty()
+                    || tf_Profesioni.getText().isEmpty()
+                    || tf_Kompania.getText().isEmpty()
+                            || comboBox_Titulli.getSelectionModel().getSelectedItem() == null
+                            || comboBox_Drejtimi.getSelectionModel().getSelectedItem() == null
+                            || radio_Mashkull == null
+                            || radio_Femer == null
+                            || radio_Other == null){
+                        alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("ERROR");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Fill all blank fields!");
+                        alert.showAndWait();
+                    }
+                    else {
+                        preparedStatement = connection.prepareStatement(ekziston);
+                        resultSet = preparedStatement.executeQuery();
+                            if(resultSet.next()){
+                                alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("ERROR");
+                                alert.setHeaderText(null);
+                                alert.setContentText("User exists!");
+                                alert.showAndWait();
+                            }else {
+                                preparedStatement = connection.prepareStatement(sql);
+                                preparedStatement.setString(1, tf_Emri.getText());
+                                preparedStatement.setString(2, tf_Mbiemri.getText());
+                                preparedStatement.setString(3, radio_Mashkull.getText());
+                                preparedStatement.setString(4, comboBox_Titulli.getSelectionModel().getSelectedItem());
+                                preparedStatement.setString(5, comboBox_Drejtimi.getSelectionModel().getSelectedItem());
+                                preparedStatement.setString(6, tf_Profesioni.getText());
+                                preparedStatement.setString(7, tf_Kompania.getText());
+                                preparedStatement.executeUpdate();
+                                alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Information");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Added succesfully!");
+                                alert.showAndWait();
+                                showEmployedListData();
+                            }
+                        }
+                    }
+        catch (SQLException e){
+                    e.printStackTrace();
+                }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showEmployedListData();
