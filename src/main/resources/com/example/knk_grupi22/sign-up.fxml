@@ -45,26 +45,27 @@
             <Label layoutX="49.0" layoutY="149.0" prefHeight="18.0" prefWidth="34.0" style="-fx-font-family: Arial;" text="Email" />
             <Label layoutX="33.0" layoutY="230.0" style="-fx-font-family: Arial;" text="Password" />
             <TextField fx:id="email" layoutX="91.0" layoutY="144.0" prefHeight="27.0" prefWidth="241.0" promptText="example@gmail.com" styleClass="btn" stylesheets="@../../../css/signup.css" />
-            <Button fx:id="signUpBtn" layoutX="100.0" layoutY="274.0" mnemonicParsing="false" onAction="#signUp" prefHeight="26.0" prefWidth="274.0" style="-fx-cursor: hand; -fx-background-color: black;" styleClass="btn" stylesheets="@../../../css/signup.css" text="Sign up" textFill="WHITE" />
+
             <Label layoutX="125.0" layoutY="315.0" style="-fx-text-fill: black;" text="Already have an account?">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button layoutX="283.0" layoutY="302.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="46.0" prefWidth="65.0" style="-fx-background-color: transparent; -fx-text-fill: #109152; -fx-cursor: hand;" text="Log in">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Button>
-            <PasswordField fx:id="password" layoutX="91.0" layoutY="225.0" onAction="#showPassword" prefHeight="27.0" prefWidth="241.0" promptText="password" styleClass="btn" stylesheets="@../../../css/signup.css" />
             <TextField fx:id="username" layoutX="91.0" layoutY="186.0" prefHeight="27.0" prefWidth="241.0" promptText="username" styleClass="btn" stylesheets="@../../../css/signup.css" />
-            <Label layoutX="32.0" layoutY="191.0" style="-fx-font-family: Arial;" text="Username" />
+            <PasswordField fx:id="password" layoutX="91.0" layoutY="225.0" onAction="#showPassword" prefHeight="27.0" prefWidth="241.0" promptText="password" styleClass="btn" stylesheets="@../../../css/signup.css" />
             <TextField fx:id="textfieldPassword" layoutX="91.0" layoutY="225.0" onAction="#showPassword" prefHeight="27.0" prefWidth="241.0" styleClass="btn" stylesheets="@../../../css/signup.css" visible="false" />
             <Button fx:id="buttonShowPassword" layoutX="303.0" layoutY="226.0" mnemonicParsing="false" onAction="#showPassword" prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
                <graphic>
                   <FontAwesomeIcon glyphName="EYE" />
                </graphic>
             </Button>
+            <Button fx:id="signUpBtn" layoutX="100.0" layoutY="274.0" mnemonicParsing="false" onAction="#signUp" prefHeight="26.0" prefWidth="274.0" style="-fx-cursor: hand; -fx-background-color: black;" styleClass="btn" stylesheets="@../../../css/signup.css" text="Sign up" textFill="WHITE" />
+            <Button layoutX="283.0" layoutY="302.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="46.0" prefWidth="65.0" style="-fx-background-color: transparent; -fx-text-fill: #109152; -fx-cursor: hand;" text="Log in">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Label layoutX="32.0" layoutY="191.0" style="-fx-font-family: Arial;" text="Username" />
             <Button fx:id="hideBtn" layoutX="303.0" layoutY="226.0" mnemonicParsing="false" onAction="#hidePassword" prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: transparent; -fx-cursor: hand;" visible="false">
                <graphic>
                   <FontAwesomeIcon glyphName="EYE" />

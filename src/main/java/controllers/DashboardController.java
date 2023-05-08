@@ -1,8 +1,11 @@
 package controllers;
 
 import com.example.knk_grupi22.HelloApplication;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -105,6 +108,9 @@ public class DashboardController implements Initializable {
 
     @FXML
     private TextField tf_ID;
+
+    @FXML
+    private TextField table_search = new TextField();
 
     @FXML
     private TextField tf_Emri;

@@ -14,6 +14,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -198,7 +200,7 @@
                         <Font name="Tahoma Bold" size="20.0" />
                      </font>
                   </Button>
-                  <Label layoutX="47.0" layoutY="47.0" text="WELCOME," textFill="WHITE">
+                  <Label layoutX="48.0" layoutY="77.0" text="WELCOME," textFill="WHITE">
                      <font>
                         <Font name="Georgia Bold" size="30.0" />
                      </font>
@@ -208,11 +210,31 @@
                         <Font name="Tahoma Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Label layoutX="80.0" layoutY="93.0" text="ADMIN" textFill="WHITE">
+                  <Label layoutX="81.0" layoutY="123.0" text="ADMIN" textFill="WHITE">
                      <font>
                         <Font name="Georgia Bold" size="30.0" />
                      </font>
                   </Label>
+                  <RadioButton fx:id="language_AL_button" layoutX="40.0" layoutY="14.0" mnemonicParsing="false" text="AL" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="language_EN_button" layoutX="140.0" layoutY="14.0" mnemonicParsing="false" text="EN" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </RadioButton>
+                  <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="5.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/download.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="29.0" layoutX="103.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/downloadd.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="264.0" layoutY="150.0" prefHeight="700.0" prefWidth="1036.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="264.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -241,7 +263,7 @@
                                     <TableColumn fx:id="tableView_Kompania" prefWidth="121.5999755859375" text="Kompania" />
                                  </columns>
                               </TableView>
-                              <TextField alignment="CENTER_RIGHT" layoutX="671.0" layoutY="18.0" prefHeight="36.0" prefWidth="335.0" promptText="Search" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
+                              <TextField fx:id="table_search" alignment="CENTER_RIGHT" layoutX="671.0" layoutY="18.0" prefHeight="36.0" prefWidth="335.0" promptText="Search" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
                                  <padding>
                                     <Insets right="35.0" />
                                  </padding>
@@ -249,7 +271,6 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </TextField>
-                              <FontAwesomeIcon glyphName="SEARCH" layoutX="975.0" layoutY="43.0" size="1.7em" text="" />
                            </children>
                         </AnchorPane>
                         <Label layoutX="210.0" layoutY="348.0" text="ID" textFill="#109152">

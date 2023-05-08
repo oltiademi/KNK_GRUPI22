@@ -119,13 +119,7 @@ public class LoginController implements Initializable {
         }
     }
 
-    @FXML
-    public void switchToPasswordField(KeyEvent event) {
-        if (event.getCode() == KeyCode.TAB) {
-            tf_Password.requestFocus();
-            event.consume();
-        }
-    }
+
 
     public void switchToSignUp(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("sign-up.fxml"));
