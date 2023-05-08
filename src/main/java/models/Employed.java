@@ -1,7 +1,7 @@
 package models;
 
 public class Employed {
-
+    String id;
     String emri;
     String mbiemri;
     String gjinia;
@@ -10,7 +10,8 @@ public class Employed {
     String profesioni;
     String kompania;
 
-    public Employed(String emri, String mbiemri, String gjinia, String titulli, String drejtimi, String profesioni, String kompania) {
+    public Employed(String id,String emri, String mbiemri, String gjinia, String titulli, String drejtimi, String profesioni, String kompania) {
+        this.id = id;
         this.emri = emri;
         this.mbiemri = mbiemri;
         this.gjinia = gjinia;
@@ -18,6 +19,10 @@ public class Employed {
         this.drejtimi = drejtimi;
         this.profesioni = profesioni;
         this.kompania = kompania;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getEmri() {

@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 
 
 public class DashboardController implements Initializable {
+
     @FXML
     private ComboBox<String> comboBox_Drejtimi;
 
@@ -77,6 +78,7 @@ public class DashboardController implements Initializable {
     @FXML
     private TableView<Employed> tableView_Employed;
 
+
     @FXML
     private TableColumn<Employed, String> tableView_Drejtimi;
 
@@ -85,6 +87,9 @@ public class DashboardController implements Initializable {
 
     @FXML
     private TableColumn<Employed, String> tableView_Gjinia;
+
+    @FXML
+    private TableColumn<Employed, Integer> tableView_ID;
 
     @FXML
     private TableColumn<Employed, String> tableView_Kompania;
@@ -97,6 +102,9 @@ public class DashboardController implements Initializable {
 
     @FXML
     private TableColumn<Employed, String> tableView_Titulli;
+
+    @FXML
+    private TextField tf_ID;
 
     @FXML
     private TextField tf_Emri;
@@ -230,7 +238,8 @@ public class DashboardController implements Initializable {
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                employed = new Employed(resultSet.getString("emri"),
+                employed = new Employed(resultSet.getString("id"),
+                        resultSet.getString("emri"),
                         resultSet.getString("mbiemri"),
                         resultSet.getString("gjinia"),
                         resultSet.getString("titulli"),
@@ -249,7 +258,7 @@ public class DashboardController implements Initializable {
 
     public void showEmployedListData() {
         empList = showEmployedList();
-
+        tableView_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableView_Emri.setCellValueFactory(new PropertyValueFactory<>("emri"));
         tableView_Mbiemri.setCellValueFactory(new PropertyValueFactory<>("mbiemri"));
         tableView_Gjinia.setCellValueFactory(new PropertyValueFactory<>("gjinia"));
@@ -267,6 +276,7 @@ public class DashboardController implements Initializable {
         if((n-1) < -1){
             return;
         }
+        tf_ID.setText(String.valueOf(employed.getId()));
         tf_Emri.setText(String.valueOf(employed.getEmri()));
         tf_Mbiemri.setText(String.valueOf(employed.getMbiemri()));
         tf_Kompania.setText(String.valueOf(employed.getKompania()));
@@ -283,13 +293,14 @@ public class DashboardController implements Initializable {
         }
     }
     public void addEmployed() throws SQLException {
-        String sql = "INSERT INTO employed (emri,mbiemri,gjinia,titulli,drejtimi,profesioni,kompania) VALUES (?,?,?,?,?,?,?)";
-        String ekziston = "SELECT emri, mbiemri, gjinia, titulli, drejtimi, profesioni, kompania FROM employed WHERE emri = '" + tf_Emri.getText() + "' AND mbiemri = '" + tf_Mbiemri.getText()+"'";
+        String sql = "INSERT INTO employed (id,emri,mbiemri,gjinia,titulli,drejtimi,profesioni,kompania) VALUES (?,?,?,?,?,?,?,?)";
+        String ekziston = "SELECT emri, mbiemri, gjinia, titulli, drejtimi, profesioni, kompania FROM employed WHERE id = '" + tf_ID.getText() +"'";
         Alert alert;
         connection = ConnectionUtil.getConnection();
 
         try{
-            if(tf_Emri.getText().isEmpty()
+            if(tf_ID.getText().isEmpty()
+                    || tf_Emri.getText().isEmpty()
                     || tf_Mbiemri.getText().isEmpty()
                     || tf_Profesioni.getText().isEmpty()
                     || tf_Kompania.getText().isEmpty()
@@ -320,13 +331,14 @@ public class DashboardController implements Initializable {
                         gjinia = selectedRadioButton.getText();
 
                         preparedStatement = connection.prepareStatement(sql);
-                        preparedStatement.setString(1, tf_Emri.getText());
-                        preparedStatement.setString(2, tf_Mbiemri.getText());
-                        preparedStatement.setString(3, gjinia);
-                        preparedStatement.setString(4, comboBox_Titulli.getSelectionModel().getSelectedItem());
-                        preparedStatement.setString(5, comboBox_Drejtimi.getSelectionModel().getSelectedItem());
-                        preparedStatement.setString(6, tf_Profesioni.getText());
-                        preparedStatement.setString(7, tf_Kompania.getText());
+                        preparedStatement.setString(1, tf_ID.getText());
+                        preparedStatement.setString(2, tf_Emri.getText());
+                        preparedStatement.setString(3, tf_Mbiemri.getText());
+                        preparedStatement.setString(4, gjinia);
+                        preparedStatement.setString(5, comboBox_Titulli.getSelectionModel().getSelectedItem());
+                        preparedStatement.setString(6, comboBox_Drejtimi.getSelectionModel().getSelectedItem());
+                        preparedStatement.setString(7, tf_Profesioni.getText());
+                        preparedStatement.setString(8, tf_Kompania.getText());
                         preparedStatement.executeUpdate();
                         alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Information");
@@ -343,6 +355,7 @@ public class DashboardController implements Initializable {
         }
     }
     public void clearEmployed(){
+        tf_ID.setText("");
         tf_Emri.setText("");
         tf_Mbiemri.setText("");
         gjiniaToggleGroup.selectToggle(null);
@@ -353,7 +366,7 @@ public class DashboardController implements Initializable {
         tf_Kompania.setText("");
     }
     public void deleteEmployed() throws SQLException {
-        String sql = "DELETE FROM employed WHERE emri = '" + tf_Emri.getText() + "' AND mbiemri = '" + tf_Mbiemri.getText() + "'";
+        String sql = "DELETE FROM employed WHERE id = '" + tf_ID.getText() + "'";
         connection = ConnectionUtil.getConnection();
 
         RadioButton selectedRadioButton = (RadioButton) gjiniaToggleGroup.getSelectedToggle();
@@ -398,12 +411,13 @@ public class DashboardController implements Initializable {
 
         if (selectedRadioButton != null) {
             String sql = "UPDATE employed SET "
-                    + " gjinia = '" + gjinia
+                    + "emri = '" + tf_Emri.getText()
+                    + "', mbiemri = '" + tf_Mbiemri.getText()
+                    + "', gjinia = '" + gjinia
                     + "', titulli = '" + comboBox_Titulli.getSelectionModel().getSelectedItem()
                     + "', drejtimi = '" + comboBox_Drejtimi.getSelectionModel().getSelectedItem()
                     + "', profesioni = '" + tf_Profesioni.getText()
-                    + "', kompania = '" + tf_Kompania.getText() + "' WHERE emri = '" + tf_Emri.getText()
-                    + "' AND mbiemri = '" + tf_Mbiemri.getText() + "'";
+                    + "', kompania = '" + tf_Kompania.getText() + "' WHERE id = '" + tf_ID.getText() +  "'";
             connection = ConnectionUtil.getConnection();
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

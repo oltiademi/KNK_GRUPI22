@@ -231,13 +231,14 @@
                            <children>
                               <TableView fx:id="tableView_Employed" layoutX="7.0" layoutY="69.0" onMouseClicked="#showDataOnTextfields" prefHeight="237.0" prefWidth="1002.0" styleClass="table" stylesheets="@../../../css/dashboard.css">
                                  <columns>
-                                    <TableColumn fx:id="tableView_Emri" prefWidth="110.39999389648438" style="-fx-text-alignment: center;" text="Emri" />
-                                    <TableColumn fx:id="tableView_Mbiemri" prefWidth="116.80001831054688" text="Mbiemri" />
-                                    <TableColumn fx:id="tableView_Gjinia" prefWidth="88.80001831054688" text="Gjinia" />
-                                    <TableColumn fx:id="tableView_Titulli" prefWidth="130.39996337890625" text="Titulli" />
-                                    <TableColumn fx:id="tableView_Drejtimi" prefWidth="266.4000244140625" text="Drejtimi" />
-                                    <TableColumn fx:id="tableView_Profesioni" prefWidth="150.40008544921875" text="Profesioni" />
-                                    <TableColumn fx:id="tableView_Kompania" prefWidth="140.800048828125" text="Kompania" />
+                                    <TableColumn fx:id="tableView_ID" prefWidth="101.60003662109375" style="-fx-text-alignment: center;" text="ID" />
+                                    <TableColumn fx:id="tableView_Emri" prefWidth="108.0" text="Emri" />
+                                    <TableColumn fx:id="tableView_Mbiemri" prefWidth="109.59994506835938" text="Mbiemri" />
+                                    <TableColumn fx:id="tableView_Gjinia" prefWidth="87.20001220703125" text="Gjinia" />
+                                    <TableColumn fx:id="tableView_Titulli" prefWidth="100.79998779296875" text="Titulli" />
+                                    <TableColumn fx:id="tableView_Drejtimi" prefWidth="244.800048828125" text="Drejtimi" />
+                                    <TableColumn fx:id="tableView_Profesioni" prefWidth="126.4000244140625" text="Profesioni" />
+                                    <TableColumn fx:id="tableView_Kompania" prefWidth="121.5999755859375" text="Kompania" />
                                  </columns>
                               </TableView>
                               <TextField alignment="CENTER_RIGHT" layoutX="671.0" layoutY="18.0" prefHeight="36.0" prefWidth="335.0" promptText="Search" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
@@ -251,12 +252,12 @@
                               <FontAwesomeIcon glyphName="SEARCH" layoutX="975.0" layoutY="43.0" size="1.7em" text="" />
                            </children>
                         </AnchorPane>
-                        <Label layoutX="188.0" layoutY="348.0" text="Emri" textFill="#109152">
+                        <Label layoutX="210.0" layoutY="348.0" text="ID" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tf_Emri" layoutX="249.0" layoutY="343.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
+                        <TextField fx:id="tf_ID" layoutX="249.0" layoutY="343.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -281,22 +282,22 @@
                               <String fx:value="combo-box" />
                            </styleClass>
                         </ComboBox>
-                        <Label layoutX="151.0" layoutY="405.0" text="Mbiemri" textFill="#109152">
+                        <Label layoutX="190.0" layoutY="405.0" text="Emri" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tf_Mbiemri" layoutX="249.0" layoutY="400.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
+                        <TextField fx:id="tf_Emri" layoutX="249.0" layoutY="400.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="131.0" layoutY="457.0" text="Profesioni" textFill="#109152">
+                        <Label layoutX="155.0" layoutY="457.0" text="Mbiemri" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tf_Profesioni" layoutX="249.0" layoutY="452.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
+                        <TextField fx:id="tf_Mbiemri" layoutX="249.0" layoutY="452.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -326,26 +327,36 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <RadioButton fx:id="radio_Mashkull" layoutX="249.0" layoutY="508.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" stylesheets="@../../../css/dashboard.css" text="Mashkull" textFill="#109152">
+                        <RadioButton fx:id="radio_Mashkull" layoutX="662.0" layoutY="517.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" stylesheets="@../../../css/dashboard.css" text="Mashkull" textFill="#109152">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="radio_Femer" layoutX="348.0" layoutY="508.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" text="Femër" textFill="#109152">
+                        <RadioButton fx:id="radio_Femer" layoutX="761.0" layoutY="517.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" text="Femër" textFill="#109152">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="radio_Other" layoutX="422.0" layoutY="508.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Tjetër" textFill="#109152">
+                        <RadioButton fx:id="radio_Other" layoutX="835.0" layoutY="517.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Tjetër" textFill="#109152">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </RadioButton>
-                        <Label layoutX="173.0" layoutY="508.0" text="Gjinia" textFill="#109152">
+                        <Label layoutX="586.0" layoutY="517.0" text="Gjinia" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
                         </Label>
+                        <Label layoutX="134.0" layoutY="517.0" text="Profesioni" textFill="#109152">
+                           <font>
+                              <Font name="Tahoma Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tf_Profesioni" layoutX="249.0" layoutY="512.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </AnchorPane>
                </children>
