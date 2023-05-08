@@ -51,7 +51,7 @@
                </graphic>
             </Button>
             <FontAwesomeIcon fill="#109152" glyphName="USERS" layoutX="106.0" layoutY="82.0" size="5em" />
-            <RadioButton fx:id="language_AL_button" layoutX="184.0" layoutY="360.0" mnemonicParsing="false" text="AL" textFill="#109152">
+            <RadioButton fx:id="language_AL_button" layoutX="146.0" layoutY="360.0" mnemonicParsing="false" text="AL" textFill="#109152">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -61,6 +61,16 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </RadioButton>
+            <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="111.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/download.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="29.0" layoutX="211.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/downloadd.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </right>

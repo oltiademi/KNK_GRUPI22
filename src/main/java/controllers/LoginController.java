@@ -144,10 +144,7 @@ public class LoginController implements Initializable {
         language_EN_button.setToggleGroup(languageToggleGroup);
         languageToggleGroup.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
             if (newToggle == language_AL_button) {
-
                 Locale currentLocale = new Locale("sq", "AL");
-
-
                 ResourceBundle bundle = ResourceBundle.getBundle("translations.content_ks", currentLocale);
                 login_Btn.setText(bundle.getString("button.login.name"));
                 forgotPassword_btn.setText(bundle.getString("forgot_password"));
@@ -158,12 +155,8 @@ public class LoginController implements Initializable {
                 tf_Username.setPromptText(bundle.getString("username"));
                 tf_Password.setPromptText(bundle.getString("password"));
 
-
-
-
             } else if (newToggle == language_EN_button) {
                 Locale currentLocale = new Locale("sq", "US");
-
                 ResourceBundle bundle = ResourceBundle.getBundle("translations.content_en", currentLocale);
                 login_Btn.setText(bundle.getString("button.login.name"));
                 forgotPassword_btn.setText(bundle.getString("forgot_password"));
@@ -173,16 +166,10 @@ public class LoginController implements Initializable {
                 signup_Btn.setAlignment(Pos.CENTER_LEFT);
                 tf_Username.setPromptText(bundle.getString("username"));
                 tf_Password.setPromptText(bundle.getString("password"));
-
             }
         });
-
-
         languageToggleGroup.selectToggle(language_AL_button);
-
-
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeLanguage();

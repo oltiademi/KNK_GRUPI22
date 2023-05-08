@@ -267,7 +267,6 @@ public class DashboardController implements Initializable {
         if((n-1) < -1){
             return;
         }
-
         tf_Emri.setText(String.valueOf(employed.getEmri()));
         tf_Mbiemri.setText(String.valueOf(employed.getMbiemri()));
         tf_Kompania.setText(String.valueOf(employed.getKompania()));
