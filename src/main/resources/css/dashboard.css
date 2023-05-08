@@ -2,10 +2,52 @@
        -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 4), 6, 0, 0, 0);
 }
 .card{
-       -fx-background-color:  linear-gradient(to left, #1f4037, #99f2c8);
+       -fx-background-color:  linear-gradient(to left, #38ef7d, #99f2c8);
        -fx-background-radius: 15px;
 }
 .chart{
        -fx-background-radius: 15px;
        -fx-background-color:   linear-gradient(to left, #3E5151, #DECBA4);
+}
+.white-bg{
+        -fx-background-color: #fff;
+        -fx-background-radius: 8px;
+}
+.table{
+        -fx-padding: 0px;
+        -fx-border-color: linear-gradient(to bottom right, #1f4037, #99f2c8);
+        -fx-border-radius: 8px;
+        -fx-border-width: 2px;
+        -fx-background-color: transparent;
+}
+.textfield{
+     -fx-border-color: "#109152";
+     -fx-border-radius: 55px;
+     -fx-background-radius: 100px;
+}
+.btn{
+    -fx-border-color: "#109152";
+    -fx-border-radius: 55px;
+    -fx-background-radius: 100px;
+}
+.table .table-column{
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+
+.table .column-header .label{
+    -fx-text-fill: #109152;
+    -fx-font-family: "Tahoma";
+    -fx-font-size: 15px;
+}
+.nav-button{
+    -fx-background-color:  linear-gradient(to left, #373B44, #4286f4);
+    -fx-cursor: hand;
+}
+.combo-box{
+         -fx-border-color: "#109152";
+         -fx-border-radius: 55px;
+         -fx-background-radius: 100px;
+         -fx-font-size: 15px;
+         -fx-font-weight: bold;
 }
