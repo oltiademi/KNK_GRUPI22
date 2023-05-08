@@ -56,9 +56,9 @@
    <center>
       <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="88.0" layoutY="248.0" text="E-Alumni" textFill="WHITE">
+            <Label layoutX="95.0" layoutY="248.0" text="E-Alumni" textFill="WHITE">
                <font>
-                  <Font name="Tahoma Bold" size="27.0" />
+                  <Font name="Arial" size="27.0" />
                </font>
             </Label>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="75.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">

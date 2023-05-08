@@ -65,12 +65,16 @@ public class LoginController implements Initializable {
                 String user = tf_Username.getText();
                 String pw = tf_Password.getText();
                 if(user.isEmpty() || pw.isEmpty()) {
-                    System.out.println("ERROR");
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("ERROR!");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Incorrect username/password");
+                    alert.showAndWait();
                 }else{
-
                         if(userService.login(user, pw) == null){
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("ERROR!");
+                            alert.setHeaderText(null);
                             alert.setContentText("Incorrect username/password");
                             alert.showAndWait();
                         }else {
@@ -80,7 +84,7 @@ public class LoginController implements Initializable {
                             Scene scene = new Scene(dashboardRoot, 1300, 700);
                             // Create a Stage for the dashboard
                             Stage stage = new Stage();
-                            stage.setTitle("Dashboard");
+                            stage.setTitle("E-Alumni");
                             stage.setScene(scene);
 
                             // Hide the current window

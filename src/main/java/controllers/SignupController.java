@@ -79,11 +79,13 @@ public class SignupController implements Initializable {
             if(first.isEmpty() || last.isEmpty() || Email.isEmpty() || user.isEmpty() || pw.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR MESSAGE");
+                alert.setHeaderText(null);
                 alert.setContentText("All fields must be filled!");
                 alert.showAndWait();
             } else {
                 userService.signUp(first, last, Email, user, pw);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
                 alert.setContentText("Succesfully signed up");
                 alert.showAndWait();
             }
