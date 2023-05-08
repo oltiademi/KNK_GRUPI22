@@ -5,6 +5,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -28,17 +29,17 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></CheckBox>
-            <Label layoutX="54.0" layoutY="320.0" style="-fx-text-fill: black;" text="Not registered?">
+            <Label fx:id="notRegisteredLabel" layoutX="54.0" layoutY="320.0" style="-fx-text-fill: black;" text="Not registered?">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="signup_Btn" layoutX="147.0" layoutY="307.0" mnemonicParsing="false" onAction="#switchToSignUp" prefHeight="45.0" prefWidth="74.0" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-text-fill: #109152;" text="Sign up">
+            <Button fx:id="signup_Btn" alignment="BASELINE_LEFT" layoutX="149.0" layoutY="307.0" mnemonicParsing="false" onAction="#switchToSignUp" prefHeight="46.0" prefWidth="131.0" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-text-fill: #109152;" text="Sign up">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button layoutX="53.0" layoutY="252.0" mnemonicParsing="false" prefHeight="2.0" prefWidth="172.0" style="-fx-background-color: transparent; -fx-text-fill: blue; -fx-cursor: hand;" text="Forgot your password?" />
+            <Button fx:id="forgotPassword_btn" layoutX="53.0" layoutY="252.0" mnemonicParsing="false" prefHeight="2.0" prefWidth="172.0" style="-fx-background-color: transparent; -fx-text-fill: blue; -fx-cursor: hand;" text="Forgot your password?" />
             <Button fx:id="buttonShowPassword" layoutX="201.0" layoutY="168.0" mnemonicParsing="false" onAction="#showPassword" prefHeight="26.0" prefWidth="14.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
                <graphic>
                   <FontAwesomeIcon glyphName="EYE" />
@@ -50,6 +51,16 @@
                </graphic>
             </Button>
             <FontAwesomeIcon fill="#109152" glyphName="USERS" layoutX="106.0" layoutY="82.0" size="5em" />
+            <RadioButton fx:id="language_AL_button" layoutX="184.0" layoutY="360.0" mnemonicParsing="false" text="AL" textFill="#109152">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="language_EN_button" layoutX="242.0" layoutY="360.0" mnemonicParsing="false" text="EN" textFill="#109152">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </RadioButton>
          </children>
       </AnchorPane>
    </right>

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,6 +24,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -32,9 +34,22 @@ public class LoginController implements Initializable {
     @FXML
     private Button signup_Btn;
     @FXML
+    private Button forgotPassword_btn;
+    @FXML
+    private RadioButton language_AL_button;
+
+    @FXML
+    private RadioButton language_EN_button;
+    @FXML
     private Button ButtonshowPassword;
     @FXML
     private Button hideBtn;
+
+    @FXML
+    private Label notRegisteredLabel = new Label();
+
+    @FXML
+    private CheckBox rememberMe;
     @FXML
     private TextField tf_Username;
 
@@ -50,57 +65,60 @@ public class LoginController implements Initializable {
     UserService userService = new UserService();
 
 
-    public void showPassword(){
+    public void showPassword() {
         textfieldPassword.setText(tf_Password.getText());
         textfieldPassword.setVisible(true);
         tf_Password.setVisible(false);
         hideBtn.setVisible(true);
 
     }
-    public void hidePassword(){
+
+    public void hidePassword() {
         tf_Password.setText(textfieldPassword.getText());
         tf_Password.setVisible(true);
         textfieldPassword.setVisible(false);
         hideBtn.setVisible(false);
     }
-    public void Login(ActionEvent actionEvent) throws IOException, SQLException {
-        if(actionEvent.getSource() == login_Btn) {
 
-                String user = tf_Username.getText();
-                String pw = tf_Password.getText();
-                if(user.isEmpty() || pw.isEmpty()) {
+    public void Login(ActionEvent actionEvent) throws IOException, SQLException {
+        if (actionEvent.getSource() == login_Btn) {
+
+            String user = tf_Username.getText();
+            String pw = tf_Password.getText();
+            if (user.isEmpty() || pw.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR!");
+                alert.setHeaderText(null);
+                alert.setContentText("Incorrect username/password");
+                alert.showAndWait();
+            } else {
+                if (userService.login(user, pw) == null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("ERROR!");
                     alert.setHeaderText(null);
                     alert.setContentText("Incorrect username/password");
                     alert.showAndWait();
-                }else{
-                        if(userService.login(user, pw) == null){
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("ERROR!");
-                            alert.setHeaderText(null);
-                            alert.setContentText("Incorrect username/password");
-                            alert.showAndWait();
-                        }else {
-                            FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
-                            Parent dashboardRoot = fxmlLoader1.load();
-                            // Create a Scene for the dashboard
-                            Scene scene = new Scene(dashboardRoot, 1300, 700);
-                            // Create a Stage for the dashboard
-                            Stage stage = new Stage();
-                            stage.setTitle("E-Alumni");
-                            stage.setScene(scene);
+                } else {
+                    FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
+                    Parent dashboardRoot = fxmlLoader1.load();
+                    // Create a Scene for the dashboard
+                    Scene scene = new Scene(dashboardRoot, 1300, 700);
+                    // Create a Stage for the dashboard
+                    Stage stage = new Stage();
+                    stage.setTitle("E-Alumni");
+                    stage.setScene(scene);
 
-                            // Hide the current window
-                            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                            currentStage.hide();
+                    // Hide the current window
+                    Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    currentStage.hide();
 
-                            // Show the dashboard window
-                            stage.show();
-                        }
+                    // Show the dashboard window
+                    stage.show();
                 }
             }
         }
+    }
+
     @FXML
     public void switchToPasswordField(KeyEvent event) {
         if (event.getCode() == KeyCode.TAB) {
@@ -119,7 +137,54 @@ public class LoginController implements Initializable {
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         currentStage.hide();
     }
+
+    public void changeLanguage() {
+        ToggleGroup languageToggleGroup = new ToggleGroup();
+        language_AL_button.setToggleGroup(languageToggleGroup);
+        language_EN_button.setToggleGroup(languageToggleGroup);
+        languageToggleGroup.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
+            if (newToggle == language_AL_button) {
+
+                Locale currentLocale = new Locale("sq", "AL");
+
+
+                ResourceBundle bundle = ResourceBundle.getBundle("translations.content_ks", currentLocale);
+                login_Btn.setText(bundle.getString("button.login.name"));
+                forgotPassword_btn.setText(bundle.getString("forgot_password"));
+                rememberMe.setText(bundle.getString("remember_me"));
+                notRegisteredLabel.setText(bundle.getString("not_registered"));
+                signup_Btn.setText(bundle.getString("sign_up"));
+                signup_Btn.setAlignment(Pos.CENTER_RIGHT);
+                tf_Username.setPromptText(bundle.getString("username"));
+                tf_Password.setPromptText(bundle.getString("password"));
+
+
+
+
+            } else if (newToggle == language_EN_button) {
+                Locale currentLocale = new Locale("sq", "US");
+
+                ResourceBundle bundle = ResourceBundle.getBundle("translations.content_en", currentLocale);
+                login_Btn.setText(bundle.getString("button.login.name"));
+                forgotPassword_btn.setText(bundle.getString("forgot_password"));
+                rememberMe.setText(bundle.getString("remember_me"));
+                notRegisteredLabel.setText(bundle.getString("not_registered"));
+                signup_Btn.setText(bundle.getString("sign_up"));
+                signup_Btn.setAlignment(Pos.CENTER_LEFT);
+                tf_Username.setPromptText(bundle.getString("username"));
+                tf_Password.setPromptText(bundle.getString("password"));
+
+            }
+        });
+
+
+        languageToggleGroup.selectToggle(language_AL_button);
+
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        changeLanguage();
     }
 }
