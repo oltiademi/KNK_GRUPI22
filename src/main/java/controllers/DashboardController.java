@@ -436,5 +436,7 @@ public class DashboardController implements Initializable {
         radio_Femer.setToggleGroup(gjiniaToggleGroup);
         radio_Mashkull.setToggleGroup(gjiniaToggleGroup);
         radio_Other.setToggleGroup(gjiniaToggleGroup);
+        dashboard_Btn.setStyle("-fx-background-color:  linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
+        dashboard_Btn1.setStyle("-fx-background-color:  linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
     }
 }

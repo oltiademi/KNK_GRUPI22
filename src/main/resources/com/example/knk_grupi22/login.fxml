@@ -17,9 +17,9 @@
       <AnchorPane prefHeight="400.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
             <FontAwesomeIcon fill="#109152" glyphName="USER" layoutX="49.0" layoutY="145.0" size="2em" />
-            <TextField fx:id="tf_Username" layoutX="75.0" layoutY="124.0" prefHeight="26.0" prefWidth="151.0" promptText="Username" styleClass="btn" stylesheets="@../../../css/signup.css" />
+            <TextField fx:id="tf_Username" layoutX="75.0" layoutY="124.0" onKeyPressed="#switchToPasswordField" prefHeight="26.0" prefWidth="151.0" promptText="Username" styleClass="btn" stylesheets="@../../../css/signup.css" />
             <FontAwesomeIcon fill="#109152" glyphName="LOCK" layoutX="50.0" layoutY="189.0" size="2em" />
-            <Button fx:id="login_Btn" layoutX="174.0" layoutY="216.0" mnemonicParsing="false" onAction="#Login" onKeyPressed="#Login" style="-fx-cursor: hand; -fx-background-color: black;" styleClass="btn" stylesheets="@../../../css/signup.css" text="Log In" textFill="WHITE">
+            <Button fx:id="login_Btn" layoutX="174.0" layoutY="216.0" mnemonicParsing="false" onAction="#Login" style="-fx-cursor: hand; -fx-background-color: black;" styleClass="btn" stylesheets="@../../../css/signup.css" text="Log In" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>

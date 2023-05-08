@@ -1,6 +1,7 @@
 package controllers;
 
 import com.example.knk_grupi22.HelloApplication;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.User;
 import service.ConnectionUtil;
@@ -45,6 +48,7 @@ public class LoginController implements Initializable {
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
     UserService userService = new UserService();
+
 
     public void showPassword(){
         textfieldPassword.setText(tf_Password.getText());
@@ -97,7 +101,13 @@ public class LoginController implements Initializable {
                 }
             }
         }
-
+    @FXML
+    public void switchToPasswordField(KeyEvent event) {
+        if (event.getCode() == KeyCode.TAB) {
+            tf_Password.requestFocus();
+            event.consume();
+        }
+    }
 
     public void switchToSignUp(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("sign-up.fxml"));
