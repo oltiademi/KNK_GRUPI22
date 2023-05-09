@@ -3,28 +3,50 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
    <children>
-      <AnchorPane fx:id="dashboardPane" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="dashboardPane" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <AnchorPane prefHeight="700.0" prefWidth="265.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);">
                <children>
+                  <RadioButton fx:id="language_AL_button1" layoutX="77.0" layoutY="14.0" mnemonicParsing="false" text="AL" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="language_EN_button1" layoutX="177.0" layoutY="14.0" mnemonicParsing="false" text="EN" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </RadioButton>
+                  <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="42.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/download.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="29.0" layoutX="140.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/downloadd.png" />
+                     </image>
+                  </ImageView>
                   <Button fx:id="dashboard_Btn" layoutX="24.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" style="-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;" text="Dashboard" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="1.7em" />
@@ -41,7 +63,7 @@
                         <Font name="Tahoma Bold" size="20.0" />
                      </font>
                   </Button>
-                  <Label layoutX="47.0" layoutY="47.0" text="WELCOME," textFill="WHITE">
+                  <Label layoutX="48.0" layoutY="77.0" text="WELCOME," textFill="WHITE">
                      <font>
                         <Font name="Georgia Bold" size="30.0" />
                      </font>
@@ -51,7 +73,7 @@
                         <Font name="Tahoma Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Label layoutX="74.0" layoutY="93.0" text="ADMIN" textFill="WHITE">
+                  <Label layoutX="81.0" layoutY="123.0" text="ADMIN" textFill="WHITE">
                      <font>
                         <Font name="Georgia Bold" size="30.0" />
                      </font>
@@ -178,11 +200,11 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <AnchorPane maxWidth="265.0" prefHeight="700.0" prefWidth="265.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);">
+            <AnchorPane maxHeight="800.0" maxWidth="265.0" prefHeight="700.0" prefWidth="265.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="dashboard_Btn1" layoutX="24.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" style="-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;" text="Dashboard" textFill="WHITE">
+                  <Button fx:id="dashboard_Btn1" layoutX="24.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" styleClass="nav-button" stylesheets="@../../../css/dashboard.css" text="Dashboard" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="1.7em" />
                      </graphic>
@@ -190,7 +212,7 @@
                         <Font name="Tahoma Bold" size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="manage_Btn1" layoutX="24.0" layoutY="312.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" style="-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;" text="Manage" textFill="WHITE">
+                  <Button fx:id="manage_Btn1" layoutX="24.0" layoutY="312.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" styleClass="nav-button" stylesheets="@../../../css/dashboard.css" text="Manage" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="COG" size="1.7em" />
                      </graphic>
@@ -198,16 +220,41 @@
                         <Font name="Tahoma Bold" size="20.0" />
                      </font>
                   </Button>
-                  <Label layoutX="24.0" layoutY="101.0" text="WELCOME ADMIN" textFill="WHITE">
+                  <Label layoutX="48.0" layoutY="77.0" text="WELCOME," textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="25.0" />
+                        <Font name="Georgia Bold" size="30.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logout_Btn1" alignment="CENTER" layoutX="24.0" layoutY="624.0" mnemonicParsing="false" onAction="#logout" prefHeight="43.0" prefWidth="218.0" style="-fx-cursor: hand; -fx-background-color: linear-gradient(to left, #373B44, #4286f4);" text="Sign Out" textFill="WHITE">
+                  <Button fx:id="logout_Btn1" alignment="CENTER" layoutX="24.0" layoutY="624.0" mnemonicParsing="false" onAction="#logout" prefHeight="43.0" prefWidth="218.0" style="-fx-cursor: hand; -fx-background-color: linear-gradient(to left, #373B44, #4286f4);" text="Sign Out" textFill="WHITE" AnchorPane.bottomAnchor="32.8">
                      <font>
                         <Font name="Tahoma Bold" size="15.0" />
                      </font>
                   </Button>
+                  <Label layoutX="81.0" layoutY="123.0" text="ADMIN" textFill="WHITE">
+                     <font>
+                        <Font name="Georgia Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="language_AL_button" layoutX="77.0" layoutY="14.0" mnemonicParsing="false" text="AL" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="language_EN_button" layoutX="177.0" layoutY="14.0" mnemonicParsing="false" text="EN" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </RadioButton>
+                  <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="42.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/download.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="29.0" layoutX="140.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/downloadd.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="264.0" layoutY="150.0" prefHeight="700.0" prefWidth="1036.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="264.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -218,38 +265,45 @@
                         <String fx:value="white-bg" />
                      </styleClass>
                      <children>
-                        <AnchorPane layoutX="6.0" prefHeight="317.0" prefWidth="1010.0" stylesheets="@../../../css/dashboard.css" AnchorPane.bottomAnchor="366.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane layoutX="6.0" prefHeight="317.0" prefWidth="1010.0" stylesheets="@../../../css/dashboard.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <styleClass>
                               <String fx:value="shadow" />
                               <String fx:value="white-bg" />
                            </styleClass>
                            <children>
-                              <TableView layoutX="7.0" layoutY="69.0" prefHeight="237.0" prefWidth="1002.0" styleClass="table" stylesheets="@../../../css/dashboard.css">
+                              <TableView fx:id="tableView_Employed" layoutX="7.0" layoutY="69.0" onMouseClicked="#showDataOnTextfields" prefHeight="237.0" prefWidth="1002.0" styleClass="table" stylesheets="@../../../css/dashboard.css" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="6.600000000000023">
                                  <columns>
-                                    <TableColumn prefWidth="124.00003051757812" text="Emri" />
-                                    <TableColumn prefWidth="126.39996337890625" text="Mbiemri" />
-                                    <TableColumn prefWidth="118.39996337890625" text="Titulli" />
-                                    <TableColumn prefWidth="193.5999755859375" text="Drejtimi" />
-                                    <TableColumn prefWidth="271.199951171875" text="Profesioni" />
-                                    <TableColumn prefWidth="189.5999755859375" text="Kompania" />
+                                    <TableColumn fx:id="tableView_ID" prefWidth="101.60003662109375" style="-fx-text-alignment: center;" text="ID" />
+                                    <TableColumn fx:id="tableView_Emri" prefWidth="108.0" text="Emri" />
+                                    <TableColumn fx:id="tableView_Mbiemri" prefWidth="109.59994506835938" text="Mbiemri" />
+                                    <TableColumn fx:id="tableView_Gjinia" prefWidth="87.20001220703125" text="Gjinia" />
+                                    <TableColumn fx:id="tableView_Titulli" prefWidth="100.79998779296875" text="Titulli" />
+                                    <TableColumn fx:id="tableView_Drejtimi" prefWidth="244.800048828125" text="Drejtimi" />
+                                    <TableColumn fx:id="tableView_Profesioni" prefWidth="126.4000244140625" text="Profesioni" />
+                                    <TableColumn fx:id="tableView_Kompania" prefWidth="121.5999755859375" text="Kompania" />
                                  </columns>
                               </TableView>
-                              <TextField alignment="CENTER_RIGHT" layoutX="671.0" layoutY="18.0" prefHeight="36.0" prefWidth="335.0" promptText="Search" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
+                              <TextField fx:id="table_search" alignment="CENTER_RIGHT" layoutX="671.0" layoutY="18.0" onKeyTyped="#filteredSearch" prefHeight="36.0" prefWidth="335.0" promptText="Search" styleClass="textfield" stylesheets="@../../../css/dashboard.css" AnchorPane.rightAnchor="9.800000000000011">
                                  <padding>
                                     <Insets right="35.0" />
                                  </padding>
                                  <font>
                                     <Font name="System Bold" size="14.0" />
-                                 </font></TextField>
-                              <FontAwesomeIcon glyphName="SEARCH" layoutX="975.0" layoutY="43.0" size="1.7em" text="" />
+                                 </font>
+                              </TextField>
+                              <FontAwesomeIcon glyphName="SEARCH" layoutX="980.0" layoutY="41.0" size="1.3em" AnchorPane.rightAnchor="21.51428508758545" />
                            </children>
                         </AnchorPane>
-                        <Label layoutX="188.0" layoutY="348.0" text="Emri" textFill="#109152">
+                        <Label layoutX="210.0" layoutY="348.0" text="ID" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="249.0" layoutY="343.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css" />
+                        <TextField fx:id="tf_ID" layoutX="249.0" layoutY="343.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </TextField>
                         <Label layoutX="588.0" layoutY="404.0" text="Titulli" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
@@ -258,47 +312,46 @@
                         <Label layoutX="562.0" layoutY="456.0" text="Drejtimi" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
-                           </font></Label>
-                        <ComboBox layoutX="656.0" layoutY="399.0" prefHeight="36.0" prefWidth="198.0" styleClass="btn" stylesheets="@../../../css/dashboard.css" />
-                        <ComboBox layoutX="656.0" layoutY="451.0" prefHeight="36.0" prefWidth="198.0" styleClass="btn" stylesheets="@../../../css/dashboard.css" />
-                        <Label layoutX="151.0" layoutY="405.0" text="Mbiemri" textFill="#109152">
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="comboBox_Titulli" layoutX="656.0" layoutY="399.0" prefHeight="36.0" prefWidth="198.0" promptText="Choose" styleClass="combo-box" stylesheets="@../../../css/dashboard.css" />
+                        <ComboBox fx:id="comboBox_Drejtimi" layoutX="656.0" layoutY="451.0" prefHeight="36.0" prefWidth="198.0" promptText="Choose" stylesheets="@../../../css/dashboard.css">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="combo-box" />
+                           </styleClass>
+                        </ComboBox>
+                        <Label layoutX="190.0" layoutY="405.0" text="Emri" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="249.0" layoutY="400.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css" />
-                        <Label layoutX="131.0" layoutY="457.0" text="Profesioni" textFill="#109152">
+                        <TextField fx:id="tf_Emri" layoutX="249.0" layoutY="400.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="155.0" layoutY="457.0" text="Mbiemri" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="249.0" layoutY="452.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css" />
+                        <TextField fx:id="tf_Mbiemri" layoutX="249.0" layoutY="452.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </TextField>
                         <Label layoutX="545.0" layoutY="347.0" text="Kompania" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="656.0" layoutY="342.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css" />
-                        <Button layoutX="68.0" layoutY="555.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Add" textFill="#109152">
+                        <TextField fx:id="tf_Kompania" layoutX="656.0" layoutY="342.0" prefHeight="36.0" prefWidth="198.0" styleClass="textfield" stylesheets="@../../../css/dashboard.css">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
-                        </Button>
-                        <Button layoutX="362.0" layoutY="555.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Delete" textFill="RED">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="655.0" layoutY="556.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Update" textFill="#00dfff">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-   </children>
-</StackPane>
+                        </TextField>
+                        <Button fx:id="shtoButoni" la
