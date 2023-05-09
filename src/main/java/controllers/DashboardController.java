@@ -206,6 +206,7 @@ public class DashboardController implements Initializable {
             dashboardPane.setVisible(false);
             managePane.setVisible(true);
             showEmployedListData();
+
             manage_Btn.setStyle("-fx-background-color:  linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
             manage_Btn1.setStyle("-fx-background-color:  linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
             dashboard_Btn.setStyle("    -fx-background-color:  linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;");
@@ -223,6 +224,7 @@ public class DashboardController implements Initializable {
             dashboardPane.setVisible(false);
             managePane.setVisible(true);
             showEmployedListData();
+
             manage_Btn.setStyle("-fx-background-color:  linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
             manage_Btn1.setStyle("-fx-background-color:  linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
             dashboard_Btn.setStyle("    -fx-background-color:  linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;");
