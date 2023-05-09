@@ -110,7 +110,7 @@ public class DashboardController implements Initializable {
     private TextField tf_ID;
 
     @FXML
-    private TextField table_search = new TextField();
+    private TextField table_search;
 
     @FXML
     private TextField tf_Emri;
