@@ -25,10 +25,6 @@
                   <Font name="System Bold" size="12.0" />
                </font></Button>
             <FontAwesomeIcon fill="#109152" glyphName="LOCK" layoutX="50.0" layoutY="189.0" size="2em" />
-            <CheckBox fx:id="rememberMe" layoutX="50.0" layoutY="221.0" mnemonicParsing="false" onAction="#Login" text="Remember me">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></CheckBox>
             <Label fx:id="notRegisteredLabel" layoutX="54.0" layoutY="320.0" style="-fx-text-fill: black;" text="Not registered?">
                <font>
                   <Font size="14.0" />
@@ -51,6 +47,7 @@
                </graphic>
             </Button>
             <FontAwesomeIcon fill="#109152" glyphName="USERS" layoutX="106.0" layoutY="82.0" size="5em" />
+            <CheckBox fx:id="rememberMeCheckbox" layoutX="50.0" layoutY="221.0" mnemonicParsing="false" text="Remember me" />
          </children>
       </AnchorPane>
    </right>

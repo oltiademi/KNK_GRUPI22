@@ -1,7 +1,6 @@
 package controllers;
 
 import com.example.knk_grupi22.HelloApplication;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +25,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.io.*;
+import java.util.Properties;
+import java.io.*;
+import java.util.Properties;
+
 
 public class LoginController implements Initializable {
     @FXML
@@ -49,7 +53,7 @@ public class LoginController implements Initializable {
     private Label notRegisteredLabel = new Label();
 
     @FXML
-    private CheckBox rememberMe;
+    private CheckBox rememberMeCheckbox;
     @FXML
     private TextField tf_Username;
 
@@ -63,7 +67,42 @@ public class LoginController implements Initializable {
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
     UserService userService = new UserService();
+    private static final String CONFIG_FILE = "config.remember.properties";
 
+    private void saveCredentials(String username, String password) {
+        Properties properties = new Properties();
+        properties.setProperty("username", username);
+        properties.setProperty("password", password);
+
+        try (OutputStream outputStream = new FileOutputStream(CONFIG_FILE)) {
+            properties.store(outputStream, "Remember Me Configuration");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void loadSavedCredentials() {
+        try (InputStream inputStream = new FileInputStream(CONFIG_FILE)) {
+            Properties properties = new Properties();
+            properties.load(inputStream);
+
+            String username = properties.getProperty("username");
+            String password = properties.getProperty("password");
+
+            if (username != null && password != null) {
+                tf_Username.setText(username);
+                tf_Password.setText(password);
+                rememberMeCheckbox.setSelected(true);
+            }
+        } catch (IOException e) {
+            // Configuration file doesn't exist or couldn't be loaded
+        }
+    }
+    private void clearSavedCredentials() {
+        File configFile = new File(CONFIG_FILE);
+        if (configFile.exists()) {
+            configFile.delete();
+        }
+    }
 
     public void showPassword() {
         textfieldPassword.setText(tf_Password.getText());
@@ -89,7 +128,7 @@ public class LoginController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR!");
                 alert.setHeaderText(null);
-                alert.setContentText("Incorrect username/password");
+                alert.setContentText("Fill all required fields");
                 alert.showAndWait();
             } else {
                 if (userService.login(user, pw) == null) {
@@ -99,6 +138,11 @@ public class LoginController implements Initializable {
                     alert.setContentText("Incorrect username/password");
                     alert.showAndWait();
                 } else {
+                    if (rememberMeCheckbox.isSelected()) {
+                        saveCredentials(user, pw);
+                    } else {
+                        clearSavedCredentials();
+                    }
                     FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
                     Parent dashboardRoot = fxmlLoader1.load();
                     // Create a Scene for the dashboard
@@ -142,7 +186,7 @@ public class LoginController implements Initializable {
                 ResourceBundle bundle = ResourceBundle.getBundle("translations.content_ks", currentLocale);
                 login_Btn.setText(bundle.getString("button.login.name"));
                 forgotPassword_btn.setText(bundle.getString("forgot_password"));
-                rememberMe.setText(bundle.getString("remember_me"));
+                rememberMeCheckbox.setText(bundle.getString("remember_me"));
                 notRegisteredLabel.setText(bundle.getString("not_registered"));
                 signup_Btn.setText(bundle.getString("sign_up"));
                 signup_Btn.setAlignment(Pos.CENTER_RIGHT);
@@ -154,7 +198,7 @@ public class LoginController implements Initializable {
                 ResourceBundle bundle = ResourceBundle.getBundle("translations.content_en", currentLocale);
                 login_Btn.setText(bundle.getString("button.login.name"));
                 forgotPassword_btn.setText(bundle.getString("forgot_password"));
-                rememberMe.setText(bundle.getString("remember_me"));
+                rememberMeCheckbox.setText(bundle.getString("remember_me"));
                 notRegisteredLabel.setText(bundle.getString("not_registered"));
                 signup_Btn.setText(bundle.getString("sign_up"));
                 signup_Btn.setAlignment(Pos.CENTER_LEFT);
@@ -166,6 +210,7 @@ public class LoginController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadSavedCredentials();
         changeLanguage();
     }
 }
