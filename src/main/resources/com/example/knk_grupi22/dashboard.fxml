@@ -4,9 +4,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -23,7 +21,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
    <children>
-      <AnchorPane fx:id="dashboardPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <AnchorPane fx:id="dashboardPane" prefHeight="200.0" prefWidth="200.0">
          <children>
             <AnchorPane prefHeight="700.0" prefWidth="265.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);">
                <children>
@@ -80,52 +78,13 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="273.0" layoutY="219.0" maxHeight="462.0" maxWidth="498.0" prefHeight="455.0" prefWidth="498.0" stylesheets="@../../../css/dashboard.css">
+            <AnchorPane layoutX="273.0" layoutY="219.0" maxHeight="462.0" maxWidth="1016.0" prefHeight="455.0" prefWidth="1016.0" stylesheets="@../../../css/dashboard.css">
                <styleClass>
                   <String fx:value="shadow" />
                   <String fx:value="chart" />
                </styleClass>
                <children>
-                  <BarChart layoutX="10.0" layoutY="52.0" prefHeight="400.0" prefWidth="468.0" title="TOTALI I TE PUNESUARVE">
-                     <xAxis>
-                        <CategoryAxis side="BOTTOM" />
-                     </xAxis>
-                     <yAxis>
-                        <NumberAxis side="LEFT" />
-                     </yAxis>
-                  </BarChart>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="800.0" layoutY="475.0" maxHeight="200.0" maxWidth="450.0" prefHeight="200.0" prefWidth="491.0" stylesheets="@../../../css/dashboard.css">
-               <styleClass>
-                  <String fx:value="shadow" />
-                  <String fx:value="chart" />
-               </styleClass>
-               <children>
-                  <BarChart layoutX="5.0" layoutY="19.0" prefHeight="166.0" prefWidth="476.0" title="TE PUNESUARIT MESHKUJ">
-                     <xAxis>
-                        <CategoryAxis side="BOTTOM" />
-                     </xAxis>
-                     <yAxis>
-                        <NumberAxis side="LEFT" />
-                     </yAxis>
-                  </BarChart>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="800.0" layoutY="219.0" maxHeight="200.0" maxWidth="498.0" prefHeight="200.0" prefWidth="491.0" stylesheets="@../../../css/dashboard.css">
-               <styleClass>
-                  <String fx:value="shadow" />
-                  <String fx:value="chart" />
-               </styleClass>
-               <children>
-                  <BarChart layoutX="4.0" layoutY="17.0" prefHeight="166.0" prefWidth="468.0" title="TE PUNESUARET FEMRA">
-                     <xAxis>
-                        <CategoryAxis side="BOTTOM" />
-                     </xAxis>
-                     <yAxis>
-                        <NumberAxis side="LEFT" />
-                     </yAxis>
-                  </BarChart>
+                  <PieChart fx:id="totalEmployedChart" layoutX="-1.0" layoutY="14.0" prefHeight="455.2" prefWidth="509.6" title="GENDER CHART" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
             <HBox layoutX="273.0" layoutY="14.0" maxHeight="180.0" maxWidth="1034.0" prefHeight="180.0" prefWidth="1016.0" style="-fx-background-color: linear-gradient(to left, #3E5151, #DECBA4); -fx-background-radius: 15px;;" styleClass="shadow" stylesheets="@../../../css/dashboard.css">
@@ -141,7 +100,7 @@
                            </font>
                         </Label>
                         <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="97.0" layoutY="65.0" size="5em" />
-                        <Label layoutX="243.0" layoutY="104.0" text="0" textFill="WHITE">
+                        <Label fx:id="totalEmployed_count" layoutX="243.0" layoutY="104.0" text="0" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="18.0" />
                            </font>
@@ -160,7 +119,7 @@
                            </font>
                         </Label>
                         <FontAwesomeIcon fill="WHITE" glyphName="MALE" layoutX="124.0" layoutY="65.0" size="5em" />
-                        <Label layoutX="243.0" layoutY="103.0" text="0" textFill="WHITE">
+                        <Label fx:id="totalMale_count" layoutX="243.0" layoutY="103.0" text="0" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="18.0" />
                            </font>
@@ -182,7 +141,7 @@
                            </font>
                         </Label>
                         <FontAwesomeIcon fill="WHITE" glyphName="FEMALE" layoutX="124.0" layoutY="65.0" size="5em" />
-                        <Label layoutX="243.0" layoutY="103.0" text="0" textFill="WHITE">
+                        <Label fx:id="totalFemale_count" layoutX="243.0" layoutY="103.0" text="0" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="18.0" />
                            </font>
@@ -200,7 +159,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <AnchorPane layoutY="6.0" maxHeight="800.0" maxWidth="265.0" prefHeight="694.0" prefWidth="266.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>

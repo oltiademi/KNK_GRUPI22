@@ -14,6 +14,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -106,6 +109,17 @@ public class DashboardController implements Initializable {
 
     @FXML
     private TableColumn<Employed, String> tableView_Titulli;
+    @FXML
+    private Label totalEmployed_count;
+
+    @FXML
+    private Label totalFemale_count;
+
+    @FXML
+    private Label totalMale_count;
+
+    @FXML
+    private PieChart totalEmployedChart;
 
     @FXML
     private TextField tf_ID;
@@ -194,7 +208,7 @@ public class DashboardController implements Initializable {
         }
     }
 
-    public void switchForm(ActionEvent actionEvent) {
+    public void switchForm(ActionEvent actionEvent) throws SQLException {
         if (actionEvent.getSource() == dashboard_Btn || actionEvent.getSource() == dashboard_Btn1) {
             dashboardPane.setVisible(true);
             managePane.setVisible(false);
@@ -202,6 +216,10 @@ public class DashboardController implements Initializable {
             dashboard_Btn1.setStyle("-fx-background-color: linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
             manage_Btn.setStyle("-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;");
             manage_Btn1.setStyle("-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;");
+            employedChart();
+            totalEmployed();
+            totalFemaleEmployed();
+            totalMaleEmployed();
 
         } else if (actionEvent.getSource() == manage_Btn || actionEvent.getSource() == manage_Btn1) {
             dashboardPane.setVisible(false);
@@ -464,12 +482,69 @@ public class DashboardController implements Initializable {
 
         });
     }
+    public void totalEmployed() throws SQLException {
+        String sql = "SELECT COUNT(id) FROM employed";
+        connection = ConnectionUtil.getConnection();
+        int totalStudents = 0;
+        preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            totalStudents = resultSet.getInt("COUNT(id)");
+        }
+        totalEmployed_count.setText(String.valueOf(totalStudents));
+    }
+    public void totalMaleEmployed() throws SQLException {
+        String sql = "SELECT COUNT(id) FROM employed WHERE gjinia = 'Mashkull'";
+        connection = ConnectionUtil.getConnection();
+        int totalMaleStudents = 0;
+        preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            totalMaleStudents = resultSet.getInt("COUNT(id)");
+        }
+        totalMale_count.setText(String.valueOf(totalMaleStudents));
+    }
+    public void totalFemaleEmployed() throws SQLException {
+        String sql = "SELECT COUNT(id) FROM employed WHERE gjinia = 'Femër'";
+        connection = ConnectionUtil.getConnection();
+        int totalFemaleStudents = 0;
+        preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            totalFemaleStudents = resultSet.getInt("COUNT(id)");
+        }
+        totalFemale_count.setText(String.valueOf(totalFemaleStudents));
+    }
+    public void employedChart() throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT gjinia, COUNT(*) FROM employed GROUP BY gjinia");
+
+        // Clear existing data in the pie chart
+        totalEmployedChart.getData().clear();
+
+        // Add data to the pie chart
+        while (resultSet.next()) {
+            String gjinia = resultSet.getString("gjinia");
+            int count = resultSet.getInt("COUNT(*)");
+            PieChart.Data data = new PieChart.Data(gjinia, count);
+            totalEmployedChart.getData().add(data);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showEmployedListData();
         comboBox_Titulli.setStyle("-fx-font-size: 15px;");
         listaTitujve();
         listaDrejtimev();
+        try {
+            totalEmployed();
+            totalMaleEmployed();
+            totalFemaleEmployed();
+            employedChart();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         gjiniaToggleGroup = new ToggleGroup();
         radio_Femer.setToggleGroup(gjiniaToggleGroup);
         radio_Mashkull.setToggleGroup(gjiniaToggleGroup);
