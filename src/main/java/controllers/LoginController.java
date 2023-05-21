@@ -175,6 +175,25 @@ public class LoginController implements Initializable {
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         currentStage.hide();
     }
+    public void forgotPassword(ActionEvent actionEvent) throws IOException {
+        if(actionEvent.getSource()== forgotPassword_btn) {
+            FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("forgotPassword.fxml"));
+            Parent dashboardRoot = fxmlLoader1.load();
+
+            Scene scene = new Scene(dashboardRoot, 521, 326);
+
+            Stage stage = new Stage();
+            stage.setTitle("Forgot your password?");
+            stage.setScene(scene);
+
+            // Hide the current window
+            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            currentStage.hide();
+
+            // Show the dashboard window
+            stage.show();
+        }
+    }
 
     public void changeLanguage() {
         ToggleGroup languageToggleGroup = new ToggleGroup();
