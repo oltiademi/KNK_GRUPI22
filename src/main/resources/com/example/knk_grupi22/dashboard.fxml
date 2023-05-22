@@ -21,7 +21,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
    <children>
-      <AnchorPane fx:id="dashboardPane" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="dashboardPane" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <AnchorPane prefHeight="700.0" prefWidth="265.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);">
                <children>
@@ -159,7 +159,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
          <children>
             <AnchorPane layoutY="6.0" maxHeight="800.0" maxWidth="265.0" prefHeight="694.0" prefWidth="266.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -194,12 +194,12 @@
                         <Font name="Georgia Bold" size="30.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="language_AL_button" layoutX="77.0" layoutY="14.0" mnemonicParsing="false" text="AL" textFill="WHITE">
+                  <RadioButton fx:id="language_AL_button2" layoutX="77.0" layoutY="14.0" mnemonicParsing="false" text="AL" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton fx:id="language_EN_button" layoutX="177.0" layoutY="14.0" mnemonicParsing="false" text="EN" textFill="WHITE">
+                  <RadioButton fx:id="language_EN_button2" layoutX="177.0" layoutY="14.0" mnemonicParsing="false" text="EN" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -253,7 +253,7 @@
                               <FontAwesomeIcon glyphName="SEARCH" layoutX="980.0" layoutY="41.0" size="1.3em" AnchorPane.rightAnchor="21.51428508758545" />
                            </children>
                         </AnchorPane>
-                        <Label layoutX="210.0" layoutY="348.0" text="ID" textFill="#109152">
+                        <Label fx:id="idLabel" layoutX="167.0" layoutY="347.0" text="ID" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
@@ -263,12 +263,12 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="588.0" layoutY="404.0" text="Titulli" textFill="#109152">
+                        <Label fx:id="titulliLabel" layoutX="566.0" layoutY="404.0" text="Titulli" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="562.0" layoutY="456.0" text="Drejtimi" textFill="#109152">
+                        <Label fx:id="drejtimiLabel" layoutX="540.0" layoutY="456.0" text="Drejtimi" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
@@ -283,7 +283,7 @@
                               <String fx:value="combo-box" />
                            </styleClass>
                         </ComboBox>
-                        <Label layoutX="190.0" layoutY="405.0" text="Emri" textFill="#109152">
+                        <Label fx:id="emriLabel" layoutX="144.0" layoutY="404.0" text="Emri" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
@@ -293,7 +293,7 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="155.0" layoutY="457.0" text="Mbiemri" textFill="#109152">
+                        <Label fx:id="mbiemriLabel" layoutX="104.0" layoutY="456.0" text="Mbiemri" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
@@ -303,7 +303,7 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="545.0" layoutY="347.0" text="Kompania" textFill="#109152">
+                        <Label fx:id="kompaniaLabel" layoutX="516.0" layoutY="347.0" text="Kompania" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
@@ -343,12 +343,12 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </RadioButton>
-                        <Label layoutX="586.0" layoutY="517.0" text="Gjinia" textFill="#109152">
+                        <Label fx:id="gjiniaLabel" layoutX="566.0" layoutY="517.0" text="Gjinia" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="134.0" layoutY="517.0" text="Profesioni" textFill="#109152">
+                        <Label fx:id="profesioniLabel" layoutX="84.0" layoutY="517.0" text="Profesioni" textFill="#109152">
                            <font>
                               <Font name="Tahoma Bold" size="20.0" />
                            </font>

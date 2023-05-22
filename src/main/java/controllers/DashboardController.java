@@ -44,9 +44,34 @@ public class DashboardController implements Initializable {
     @FXML
     private Label welcome_label;
     @FXML
+    private Label drejtimiLabel;
+
+    @FXML
+    private Label emriLabel;
+    @FXML
+    private Label titulliLabel;
+    @FXML
+    private Label gjiniaLabel;
+
+    @FXML
+    private Label idLabel;
+
+    @FXML
+    private Label kompaniaLabel;
+
+    @FXML
+    private Label mbiemriLabel;
+
+    @FXML
+    private Label profesioniLabel;
+    @FXML
     private RadioButton language_AL_button1;
     @FXML
     private RadioButton language_EN_button1;
+    @FXML
+    private RadioButton language_AL_button2;
+    @FXML
+    private RadioButton language_EN_button2;
 
     @FXML
     private ComboBox<String> comboBox_Drejtimi;
@@ -243,7 +268,6 @@ public class DashboardController implements Initializable {
             manage_Btn1.setStyle("-fx-background-color: linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
             dashboard_Btn.setStyle(" -fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;");
             dashboard_Btn1.setStyle(" -fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;");
-            changeLanguage();
         }
     }
 
@@ -545,7 +569,7 @@ public class DashboardController implements Initializable {
             totalEmployedChart.getData().add(data);
         }
     }
-    public void changeLanguage() {
+    public void changeLanguageDashboard() {
         ToggleGroup languageToggleGroup = new ToggleGroup();
         language_AL_button1.setToggleGroup(languageToggleGroup);
         language_EN_button1.setToggleGroup(languageToggleGroup);
@@ -578,11 +602,65 @@ public class DashboardController implements Initializable {
         });
         languageToggleGroup.selectToggle(language_AL_button1);
     }
+    public void changeLanguageManage(){
+        ToggleGroup languageToggleGroup = new ToggleGroup();
+        language_AL_button2.setToggleGroup(languageToggleGroup);
+        language_EN_button2.setToggleGroup(languageToggleGroup);
+        languageToggleGroup.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
+            if (newToggle == language_AL_button2) {
+                Locale currentLocale = new Locale("sq", "AL");
+                ResourceBundle bundle = ResourceBundle.getBundle("translations.content_ks", currentLocale);
+                dashboard_Btn1.setText(bundle.getString("dashboard_btn"));
+                manage_Btn1.setText(bundle.getString("manage_btn"));
+                welcome_label.setText(bundle.getString("welcomeLabel"));
+                logout_Btn1.setText(bundle.getString("signout_btn"));
+                emriLabel.setText(bundle.getString("name_label"));
+                mbiemriLabel.setText(bundle.getString("lastname_label"));
+                profesioniLabel.setText(bundle.getString("profesioni"));
+                kompaniaLabel.setText(bundle.getString("kompania"));
+                titulliLabel.setText(bundle.getString("titulli"));
+                drejtimiLabel.setText(bundle.getString("drejtimi"));
+                gjiniaLabel.setText(bundle.getString("gjinia"));
+                shtoButoni.setText(bundle.getString("shto"));
+                fshijButoni.setText(bundle.getString("fshij"));
+                perditesoButoni.setText(bundle.getString("perditeso"));
+                radio_Mashkull.setText(bundle.getString("mashkull"));
+                radio_Femer.setText(bundle.getString("femer"));
+                radio_Other.setText(bundle.getString("tjeter"));
+
+
+
+            } else if (newToggle == language_EN_button2) {
+                Locale currentLocale = new Locale("sq", "US");
+                ResourceBundle bundle = ResourceBundle.getBundle("translations.content_en", currentLocale);
+                dashboard_Btn1.setText(bundle.getString("dashboard_btn"));
+                manage_Btn1.setText(bundle.getString("manage_btn"));
+                welcome_label.setText(bundle.getString("welcomeLabel"));
+                logout_Btn1.setText(bundle.getString("signout_btn"));
+                emriLabel.setText(bundle.getString("name_label"));
+                mbiemriLabel.setText(bundle.getString("lastname_label"));
+                profesioniLabel.setText(bundle.getString("profesioni"));
+                kompaniaLabel.setText(bundle.getString("kompania"));
+                titulliLabel.setText(bundle.getString("titulli"));
+                drejtimiLabel.setText(bundle.getString("drejtimi"));
+                gjiniaLabel.setText(bundle.getString("gjinia"));
+                shtoButoni.setText(bundle.getString("shto"));
+                fshijButoni.setText(bundle.getString("fshij"));
+                perditesoButoni.setText(bundle.getString("perditeso"));
+                radio_Mashkull.setText(bundle.getString("mashkull"));
+                radio_Femer.setText(bundle.getString("femer"));
+                radio_Other.setText(bundle.getString("tjeter"));
+
+            }
+        });
+        languageToggleGroup.selectToggle(language_AL_button2);
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showEmployedListData();
         comboBox_Titulli.setStyle("-fx-font-size: 15px;");
-        changeLanguage();
+        changeLanguageDashboard();
+        changeLanguageManage();
         listaTitujve();
         listaDrejtimev();
         try {
