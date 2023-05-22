@@ -21,16 +21,16 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
    <children>
-      <AnchorPane fx:id="dashboardPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <AnchorPane fx:id="dashboardPane" prefHeight="200.0" prefWidth="1020.0">
          <children>
             <AnchorPane prefHeight="700.0" prefWidth="265.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);">
                <children>
-                  <RadioButton fx:id="language_AL_button1" layoutX="77.0" layoutY="14.0" mnemonicParsing="false" text="AL" textFill="WHITE">
+                  <RadioButton fx:id="language_AL_button" layoutX="77.0" layoutY="14.0" mnemonicParsing="false" text="AL" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton fx:id="language_EN_button1" layoutX="177.0" layoutY="14.0" mnemonicParsing="false" text="EN" textFill="WHITE">
+                  <RadioButton fx:id="language_EN_button" layoutX="177.0" layoutY="14.0" mnemonicParsing="false" text="EN" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -76,9 +76,17 @@
                         <Font name="Georgia Bold" size="30.0" />
                      </font>
                   </Label>
+                  <Button fx:id="statistics_Btn" layoutX="24.0" layoutY="372.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" style="-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;" text="Manage" textFill="WHITE">
+                     <font>
+                        <Font name="Tahoma Bold" size="20.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="FILE" size="1.3em" />
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="273.0" layoutY="219.0" maxHeight="462.0" maxWidth="1016.0" prefHeight="455.0" prefWidth="1016.0" stylesheets="@../../../css/dashboard.css">
+            <AnchorPane layoutX="273.0" layoutY="219.0" maxHeight="462.0" maxWidth="1016.0" prefHeight="455.0" prefWidth="958.0" stylesheets="@../../../css/dashboard.css">
                <styleClass>
                   <String fx:value="shadow" />
                   <String fx:value="chart" />
@@ -159,7 +167,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <AnchorPane layoutY="6.0" maxHeight="800.0" maxWidth="265.0" prefHeight="694.0" prefWidth="266.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -230,7 +238,7 @@
                               <String fx:value="white-bg" />
                            </styleClass>
                            <children>
-                              <TableView fx:id="tableView_Employed" layoutX="7.0" layoutY="69.0" onMouseClicked="#showDataOnTextfields" prefHeight="237.0" prefWidth="1002.0" styleClass="table" stylesheets="@../../../css/dashboard.css" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="6.600000000000023">
+                              <TableView fx:id="tableView_Employed" layoutX="7.0" layoutY="69.0" prefHeight="237.0" prefWidth="1002.0" styleClass="table" stylesheets="@../../../css/dashboard.css" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="6.600000000000023">
                                  <columns>
                                     <TableColumn fx:id="tableView_ID" prefWidth="101.60003662109375" style="-fx-text-alignment: center;" text="ID" />
                                     <TableColumn fx:id="tableView_Emri" prefWidth="108.0" text="Emri" />
@@ -242,7 +250,7 @@
                                     <TableColumn fx:id="tableView_Kompania" prefWidth="121.5999755859375" text="Kompania" />
                                  </columns>
                               </TableView>
-                              <TextField fx:id="table_search" alignment="CENTER_RIGHT" layoutX="671.0" layoutY="18.0" onKeyTyped="#filteredSearch" prefHeight="36.0" prefWidth="335.0" promptText="Search" styleClass="textfield" stylesheets="@../../../css/dashboard.css" AnchorPane.rightAnchor="9.800000000000011">
+                              <TextField fx:id="table_search" alignment="CENTER_RIGHT" layoutX="671.0" layoutY="18.0" prefHeight="36.0" prefWidth="335.0" promptText="Search" styleClass="textfield" stylesheets="@../../../css/dashboard.css" AnchorPane.rightAnchor="9.800000000000011">
                                  <padding>
                                     <Insets right="35.0" />
                                  </padding>
@@ -313,17 +321,17 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="shtoButoni" layoutX="69.0" layoutY="598.0" mnemonicParsing="false" onAction="#addEmployed" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Shto" textFill="#109152">
+                        <Button fx:id="shtoButoni" layoutX="69.0" layoutY="598.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Shto" textFill="#109152">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="fshijButoni" layoutX="363.0" layoutY="598.0" mnemonicParsing="false" onAction="#deleteEmployed" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Fshij" textFill="RED">
+                        <Button fx:id="fshijButoni" layoutX="363.0" layoutY="598.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Fshij" textFill="RED">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="perditesoButoni" layoutX="656.0" layoutY="599.0" mnemonicParsing="false" onAction="#updateEmployed" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Përditëso" textFill="#00dfff">
+                        <Button fx:id="perditesoButoni" layoutX="656.0" layoutY="599.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="254.0" style="-fx-cursor: hand;" styleClass="btn" stylesheets="@../../../css/dashboard.css" text="Përditëso" textFill="#00dfff">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
