@@ -93,13 +93,13 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     public static User update(UpdateUserDto user) throws SQLException{
-        String sql = "UPDATE user SET salted_password = ? WHERE id = ?";
+        String sql = "UPDATE user SET saltedHash = ? WHERE id = ?";
         Connection conn = ConnectionUtil.getConnection();
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         preparedStatement.setObject(1, user.getSaltedPassword());
         preparedStatement.setObject(2, user.getId());
         preparedStatement.executeUpdate();
 
-        return UserRepository.get("id", user.getId());
+        return UserRepository.get("email", user.getId());
     }
 }

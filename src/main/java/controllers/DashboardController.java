@@ -27,12 +27,26 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 
 public class DashboardController implements Initializable {
+
+    @FXML
+    private Label totalEmployedLabel;
+    @FXML
+    private Label totalMaleLabel;
+    @FXML
+    private Label totalFemaleLabel;
+    @FXML
+    private Label welcome_label;
+    @FXML
+    private RadioButton language_AL_button1;
+    @FXML
+    private RadioButton language_EN_button1;
 
     @FXML
     private ComboBox<String> comboBox_Drejtimi;
@@ -229,6 +243,7 @@ public class DashboardController implements Initializable {
             manage_Btn1.setStyle("-fx-background-color: linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
             dashboard_Btn.setStyle(" -fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;");
             dashboard_Btn1.setStyle(" -fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;");
+            changeLanguage();
         }
     }
 
@@ -530,10 +545,44 @@ public class DashboardController implements Initializable {
             totalEmployedChart.getData().add(data);
         }
     }
+    public void changeLanguage() {
+        ToggleGroup languageToggleGroup = new ToggleGroup();
+        language_AL_button1.setToggleGroup(languageToggleGroup);
+        language_EN_button1.setToggleGroup(languageToggleGroup);
+        languageToggleGroup.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
+            if (newToggle == language_AL_button1) {
+                Locale currentLocale = new Locale("sq", "AL");
+                ResourceBundle bundle = ResourceBundle.getBundle("translations.content_ks", currentLocale);
+                dashboard_Btn.setText(bundle.getString("dashboard_btn"));
+                manage_Btn.setText(bundle.getString("manage_btn"));
+                welcome_label.setText(bundle.getString("welcomeLabel"));
+                totalEmployedLabel.setText(bundle.getString("totalEmployed"));
+                totalMaleLabel.setText(bundle.getString("totalMaleEmployed"));
+                totalFemaleLabel.setText(bundle.getString("totalFemaleEmployed"));
+                logout_Btn.setText(bundle.getString("signout_btn"));
+
+
+
+            } else if (newToggle == language_EN_button1) {
+                Locale currentLocale = new Locale("sq", "US");
+                ResourceBundle bundle = ResourceBundle.getBundle("translations.content_en", currentLocale);
+                dashboard_Btn.setText(bundle.getString("dashboard_btn"));
+                manage_Btn.setText(bundle.getString("manage_btn"));
+                welcome_label.setText(bundle.getString("welcomeLabel"));
+                totalEmployedLabel.setText(bundle.getString("totalEmployed"));
+                totalMaleLabel.setText(bundle.getString("totalMaleEmployed"));
+                totalFemaleLabel.setText(bundle.getString("totalFemaleEmployed"));
+                logout_Btn.setText(bundle.getString("signout_btn"));
+
+            }
+        });
+        languageToggleGroup.selectToggle(language_AL_button1);
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showEmployedListData();
         comboBox_Titulli.setStyle("-fx-font-size: 15px;");
+        changeLanguage();
         listaTitujve();
         listaDrejtimev();
         try {
