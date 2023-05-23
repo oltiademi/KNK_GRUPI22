@@ -25,8 +25,6 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-
-
 public class ManageController implements Initializable {
     @FXML
     private Label welcome_label;
@@ -107,7 +105,7 @@ public class ManageController implements Initializable {
     @FXML
     private Button statistics_Btn;
     private String[] titujt= {"Baçelor(BSc)", "Master(MSc)", "Doktoraturë(PHD)"};
-    private String[] drejtimetBSc = {"Inxhinieri Kompjuterike dhe Softuerike", "Elektronikë, Automatikë dhe Robotikë", "Teknologjite e Informacionit dhe Komunikimit", "Elektroenergjetike"};
+    private String[] drejtimetBSc = {"Inxhinieri Kompjuterike dhe Softuerike", "Elektronikë, Automatikë dhe Robotikë", "Teknologjite e Informacionit dhe Komunikimit", "Elektroenergjetikë"};
     private String[] drejtimetMsc = {"Inxhinieri Kompjuterike dhe Softuerike", "Elektronikë, Automatikë dhe Robotikë", "Teknologjite e Informacionit dhe Komunikimit"};
     private String[] drejtimetPHD = {"Inxhinieri Kompjuterike dhe Softuerike"};
     private Connection connection = null;
@@ -218,7 +216,6 @@ public class ManageController implements Initializable {
         tableView_Drejtimi.setCellValueFactory(new PropertyValueFactory<>("drejtimi"));
         tableView_Profesioni.setCellValueFactory(new PropertyValueFactory<>("profesioni"));
         tableView_Kompania.setCellValueFactory(new PropertyValueFactory<>("kompania"));
-
         tableView_Employed.setItems(empList);
     }
     public void showDataOnTextfields(){
@@ -378,7 +375,6 @@ public class ManageController implements Initializable {
             alert.setContentText("Are you sure you want to update this user?");
             Optional<ButtonType> optionalButtonType = alert.showAndWait();
             if(optionalButtonType.get().equals(ButtonType.OK)) {
-
                 statement = connection.createStatement();
                 statement.executeUpdate(sql);
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
@@ -426,7 +422,7 @@ public class ManageController implements Initializable {
         });
     }
 
-    public void changeLanguageManage(){
+    public void changeLanguage(){
         ToggleGroup languageToggleGroup = new ToggleGroup();
         language_AL_button.setToggleGroup(languageToggleGroup);
         language_EN_button.setToggleGroup(languageToggleGroup);
@@ -436,6 +432,7 @@ public class ManageController implements Initializable {
                 ResourceBundle bundle = ResourceBundle.getBundle("translations.content_ks", currentLocale);
                 dashboard_Btn.setText(bundle.getString("dashboard_btn"));
                 manage_Btn.setText(bundle.getString("manage_btn"));
+                statistics_Btn.setText(bundle.getString("statistics"));
                 welcome_label.setText(bundle.getString("welcomeLabel"));
                 logout_Btn.setText(bundle.getString("signout_btn"));
                 emriLabel.setText(bundle.getString("name_label"));
@@ -456,6 +453,7 @@ public class ManageController implements Initializable {
                 ResourceBundle bundle = ResourceBundle.getBundle("translations.content_en", currentLocale);
                 dashboard_Btn.setText(bundle.getString("dashboard_btn"));
                 manage_Btn.setText(bundle.getString("manage_btn"));
+                statistics_Btn.setText(bundle.getString("statistics"));
                 welcome_label.setText(bundle.getString("welcomeLabel"));
                 logout_Btn.setText(bundle.getString("signout_btn"));
                 emriLabel.setText(bundle.getString("name_label"));
@@ -478,10 +476,10 @@ public class ManageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showEmployedListData();
-        comboBox_Titulli.setStyle("-fx-font-size: 15px;");
-        changeLanguageManage();
+        changeLanguage();
         listaTitujve();
         listaDrejtimev();
+        comboBox_Titulli.setStyle("-fx-font-size: 15px;");
         gjiniaToggleGroup = new ToggleGroup();
         radio_Femer.setToggleGroup(gjiniaToggleGroup);
         radio_Mashkull.setToggleGroup(gjiniaToggleGroup);

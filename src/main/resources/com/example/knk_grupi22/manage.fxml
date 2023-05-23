@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManageController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1350.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManageController">
     <children>
         <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -74,12 +74,12 @@
                                 <Image url="@../../../img/downloadd.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="statistics_Btn" layoutX="24.0" layoutY="372.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" style="-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;" text="Manage" textFill="WHITE">
+                        <Button fx:id="statistics_Btn" layoutX="24.0" layoutY="372.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" style="-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;" text="Statistics" textFill="WHITE">
                             <font>
                                 <Font name="Tahoma Bold" size="20.0" />
                             </font>
                             <graphic>
-                                <FontAwesomeIcon fill="WHITE" glyphName="FILE" size="1.3em" />
+                                <FontAwesomeIcon fill="WHITE" glyphName="LINE_CHART" size="1.3em" />
                             </graphic>
                         </Button>
                     </children>

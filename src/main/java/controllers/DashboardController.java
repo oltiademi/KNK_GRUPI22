@@ -17,8 +17,6 @@ import java.net.URL;
 import java.sql.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-
 public class DashboardController implements Initializable {
 
     @FXML
@@ -80,21 +78,19 @@ public class DashboardController implements Initializable {
             }
         }
 
-    public void switchForm(ActionEvent actionEvent) throws SQLException, IOException {
+    public void switchForm(ActionEvent actionEvent)throws IOException {
          if (actionEvent.getSource() == manage_Btn) {
             FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("manage.fxml"));
             Parent dashboardRoot = fxmlLoader1.load();
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             currentStage.getScene().setRoot(dashboardRoot);
             currentStage.show();
-             manage_Btn.setStyle("-fx-background-color: linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
         } else if(actionEvent.getSource() == statistics_Btn){
             FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("statistikat.fxml"));
             Parent dashboardRoot = fxmlLoader1.load();
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             currentStage.getScene().setRoot(dashboardRoot);
             currentStage.show();
-             statistics_Btn.setStyle("-fx-background-color: linear-gradient(to left, #11998e, #38ef7d); -fx-cursor: hand;");
          }
     }
 
@@ -152,6 +148,7 @@ public class DashboardController implements Initializable {
                 ResourceBundle bundle = ResourceBundle.getBundle("translations.content_ks", currentLocale);
                 dashboard_Btn.setText(bundle.getString("dashboard_btn"));
                 manage_Btn.setText(bundle.getString("manage_btn"));
+                statistics_Btn.setText(bundle.getString("statistics"));
                 welcome_label.setText(bundle.getString("welcomeLabel"));
                 totalEmployedLabel.setText(bundle.getString("totalEmployed"));
                 totalMaleLabel.setText(bundle.getString("totalMaleEmployed"));
@@ -162,6 +159,7 @@ public class DashboardController implements Initializable {
                 ResourceBundle bundle = ResourceBundle.getBundle("translations.content_en", currentLocale);
                 dashboard_Btn.setText(bundle.getString("dashboard_btn"));
                 manage_Btn.setText(bundle.getString("manage_btn"));
+                statistics_Btn.setText(bundle.getString("statistics"));
                 welcome_label.setText(bundle.getString("welcomeLabel"));
                 totalEmployedLabel.setText(bundle.getString("totalEmployed"));
                 totalMaleLabel.setText(bundle.getString("totalMaleEmployed"));
@@ -171,7 +169,6 @@ public class DashboardController implements Initializable {
         });
         languageToggleGroup.selectToggle(language_AL_button);
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         changeLanguage();

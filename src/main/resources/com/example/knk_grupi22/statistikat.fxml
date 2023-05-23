@@ -1,14 +1,210 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.lang.String?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.StatistikatController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatistikatController">
+    <children>
+        <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <AnchorPane layoutY="6.0" maxHeight="800.0" maxWidth="265.0" prefHeight="694.0" prefWidth="266.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Button fx:id="dashboard_Btn" layoutX="24.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" styleClass="nav-button" stylesheets="@../../../css/dashboard.css" text="Dashboard" textFill="WHITE">
+                            <graphic>
+                                <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="1.7em" />
+                            </graphic>
+                            <font>
+                                <Font name="Tahoma Bold" size="20.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="manage_Btn" layoutX="24.0" layoutY="312.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" style="-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;" text="Manage" textFill="WHITE">
+                            <font>
+                                <Font name="Tahoma Bold" size="20.0" />
+                            </font>
+                            <graphic>
+                                <FontAwesomeIcon fill="WHITE" glyphName="FILE" size="1.3em" />
+                            </graphic>
+                        </Button>
+                        <Label fx:id="welcome_label" layoutX="48.0" layoutY="77.0" text="WELCOME," textFill="WHITE">
+                            <font>
+                                <Font name="Georgia Bold" size="30.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="logout_Btn" alignment="CENTER" layoutX="24.0" layoutY="624.0" mnemonicParsing="false" onAction="#logout" prefHeight="43.0" prefWidth="218.0" style="-fx-cursor: hand; -fx-background-color: linear-gradient(to left, #373B44, #4286f4);" text="Sign Out" textFill="WHITE" AnchorPane.bottomAnchor="32.8">
+                            <font>
+                                <Font name="Tahoma Bold" size="15.0" />
+                            </font>
+                        </Button>
+                        <Label layoutX="81.0" layoutY="123.0" text="ADMIN" textFill="WHITE">
+                            <font>
+                                <Font name="Georgia Bold" size="30.0" />
+                            </font>
+                        </Label>
+                        <RadioButton fx:id="language_AL_button" layoutX="77.0" layoutY="14.0" mnemonicParsing="false" text="AL" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </RadioButton>
+                        <RadioButton fx:id="language_EN_button" layoutX="177.0" layoutY="14.0" mnemonicParsing="false" text="EN" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </RadioButton>
+                        <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="42.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../img/download.jpg" />
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="60.0" fitWidth="29.0" layoutX="140.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../img/downloadd.png" />
+                            </image>
+                        </ImageView>
+                        <Button fx:id="statistics_Btn" layoutX="24.0" layoutY="372.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" style="-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;" text="Statistics" textFill="WHITE">
+                            <font>
+                                <Font name="Tahoma Bold" size="20.0" />
+                            </font>
+                            <graphic>
+                                <FontAwesomeIcon fill="WHITE" glyphName="LINE_CHART" size="1.3em" />
+                            </graphic>
+                        </Button>
+                    </children>
+                </AnchorPane>
+            <AnchorPane layoutX="266.0" layoutY="117.0" prefHeight="700.0" prefWidth="1034.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="266.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="681.0" prefWidth="1013.0" stylesheets="@../../../css/dashboard.css" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="white-bg" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                     <children>
+                        <AnchorPane layoutX="14.0" layoutY="52.0" prefHeight="200.0" prefWidth="398.0" styleClass="card" stylesheets="@../../../css/dashboard.css">
+                           <children>
+                              <Label fx:id="bachelor_label" layoutX="31.0" layoutY="92.0" text="Të punësuarit me Bachelor" textFill="WHITE">
+                                 <font>
+                                     <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <FontAwesomeIcon glyphName="GRADUATION_CAP" layoutX="197.0" layoutY="61.0" size="4em" />
+                              <Label fx:id="master_label" layoutX="31.0" layoutY="122.0" text="Të punësuarit me Master" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="bachelor" layoutX="363.0" layoutY="91.0" text="0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="phd_label" layoutX="31.0" layoutY="154.0" text="Të punësuarit me Doktoraturë" textFill="WHITE">
+                                 <font>
+                                     <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="master" layoutX="363.0" layoutY="122.0" text="0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="doktorature" layoutX="363.0" layoutY="153.0" text="0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="445.0" layoutY="52.0" prefHeight="200.0" prefWidth="556.0" styleClass="card" stylesheets="@../../../css/dashboard.css">
+                           <children>
+                              <Label fx:id="iks_bsc_label" layoutX="11.0" layoutY="14.0" text="Inxhinieri Kompjuterike dhe Softuerike(BSc)" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="ear_bsc_label" layoutX="11.0" layoutY="64.0" text="Elektronikë, Automatikë dhe Robotikë(BSc)" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="ear_msc_label" layoutX="11.0" layoutY="88.0" text="Elektronikë, Automatikë dhe Robotikë(MSc)" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="iks_msc_label" layoutX="11.0" layoutY="40.0" text="Inxhinieri Kompjuterike dhe Softuerike(MSc)" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="tik_bsc_label" layoutX="10.0" layoutY="110.0" text="Teknologjite e Informacionit dhe Komunikimit(BSc)" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="tik_msc_label" layoutX="9.0" layoutY="133.0" text="Teknologjite e Informacionit dhe Komunikimit(MSc)" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="elektro_label" layoutX="14.0" layoutY="157.0" text="Elektroenergjetike(BSc)" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="iks_bachelor" layoutX="512.0" layoutY="14.0" text="0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="iks_master" layoutX="512.0" layoutY="40.0" text="0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="ear_bachelor" layoutX="512.0" layoutY="64.0" text="0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="tik_bachelor" layoutX="512.0" layoutY="110.0" text="0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="elektroenergjetike_bachelor" layoutX="512.0" layoutY="157.0" text="0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="tik_master" layoutX="512.0" layoutY="133.0" text="0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="ear_master" layoutX="512.0" layoutY="88.0" text="0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="19.0" />
+                                 </font>
+                              </Label>
+                           </children></AnchorPane>
+                        <AnchorPane layoutX="14.0" layoutY="279.0" prefHeight="387.0" prefWidth="987.0" styleClass="shadow" stylesheets="@../../../css/dashboard.css">
+                           <children>
+                              <PieChart fx:id="titulliPieChart" layoutX="13.0" layoutY="11.0" prefHeight="387.0" prefWidth="429.0" title="Titulli" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="558.0" AnchorPane.topAnchor="0.0" />
+                              <PieChart fx:id="drejtimiPieChart" layoutX="450.0" layoutY="-6.0" prefHeight="387.0" prefWidth="537.0" title="Drejtimi" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>
