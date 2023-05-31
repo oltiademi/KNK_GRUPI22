@@ -1,6 +1,5 @@
 package controllers;
 
-import com.example.knk_grupi22.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import models.User;
 import service.ConnectionUtil;
-import service.PasswordHasher;
 import service.UserService;
 import java.io.IOException;
 import java.net.URL;
@@ -25,8 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.io.*;
-import java.util.Properties;
 import java.io.*;
 import java.util.Properties;
 
@@ -143,7 +136,7 @@ public class LoginController implements Initializable {
                     } else {
                         clearSavedCredentials();
                     }
-                    FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
+                    FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/dashboard.fxml"));
                     Parent dashboardRoot = fxmlLoader1.load();
                     // Create a Scene for the dashboard
                     Scene scene = new Scene(dashboardRoot, 1300, 700);
@@ -166,7 +159,7 @@ public class LoginController implements Initializable {
 
 
     public void switchToSignUp(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("sign-up.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/sign-up.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 750, 400);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -177,7 +170,7 @@ public class LoginController implements Initializable {
     }
     public void forgotPassword(ActionEvent actionEvent) throws IOException {
         if(actionEvent.getSource()== forgotPassword_btn) {
-            FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("forgotPassword.fxml"));
+            FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/forgotPassword.fxml"));
             Parent dashboardRoot = fxmlLoader1.load();
 
             Scene scene = new Scene(dashboardRoot, 521, 326);

@@ -18,7 +18,7 @@
             <children>
                 <AnchorPane layoutY="6.0" maxHeight="800.0" maxWidth="265.0" prefHeight="694.0" prefWidth="266.0" style="-fx-background-color: linear-gradient(to left, #1f4037, #99f2c8);" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Button fx:id="dashboard_Btn" layoutX="24.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" styleClass="nav-button" stylesheets="@../../../css/dashboard.css" text="Dashboard" textFill="WHITE">
+                        <Button fx:id="dashboard_Btn" layoutX="24.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" styleClass="nav-button" stylesheets="@../css/dashboard.css" text="Dashboard" textFill="WHITE">
                             <graphic>
                                 <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="1.7em" />
                             </graphic>
@@ -61,12 +61,12 @@
                         </RadioButton>
                         <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="42.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../img/download.jpg" />
+                                <Image url="@../img/download.jpg" />
                             </image>
                         </ImageView>
                         <ImageView fitHeight="60.0" fitWidth="29.0" layoutX="140.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../img/downloadd.png" />
+                                <Image url="@../img/downloadd.png" />
                             </image>
                         </ImageView>
                         <Button fx:id="statistics_Btn" layoutX="24.0" layoutY="372.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="47.0" prefWidth="218.0" style="-fx-background-color: linear-gradient(to left, #373B44, #4286f4); -fx-cursor: hand;" text="Statistics" textFill="WHITE">
@@ -81,13 +81,13 @@
                 </AnchorPane>
             <AnchorPane layoutX="266.0" layoutY="117.0" prefHeight="700.0" prefWidth="1034.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="266.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="681.0" prefWidth="1013.0" stylesheets="@../../../css/dashboard.css" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="10.0">
+                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="681.0" prefWidth="1013.0" stylesheets="@../css/dashboard.css" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="10.0">
                      <styleClass>
                         <String fx:value="white-bg" />
                         <String fx:value="shadow" />
                      </styleClass>
                      <children>
-                        <AnchorPane layoutX="14.0" layoutY="52.0" prefHeight="200.0" prefWidth="398.0" styleClass="card" stylesheets="@../../../css/dashboard.css">
+                        <AnchorPane layoutX="14.0" layoutY="52.0" prefHeight="200.0" prefWidth="398.0" styleClass="card" stylesheets="@../css/dashboard.css">
                            <children>
                               <Label fx:id="bachelor_label" layoutX="31.0" layoutY="92.0" text="Të punësuarit me Bachelor" textFill="WHITE">
                                  <font>
@@ -122,7 +122,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="445.0" layoutY="52.0" prefHeight="200.0" prefWidth="556.0" styleClass="card" stylesheets="@../../../css/dashboard.css">
+                        <AnchorPane layoutX="445.0" layoutY="52.0" prefHeight="200.0" prefWidth="556.0" styleClass="card" stylesheets="@../css/dashboard.css">
                            <children>
                               <Label fx:id="iks_bsc_label" layoutX="11.0" layoutY="14.0" text="Inxhinieri Kompjuterike dhe Softuerike(BSc)" textFill="WHITE">
                                  <font>
@@ -195,7 +195,7 @@
                                  </font>
                               </Label>
                            </children></AnchorPane>
-                        <AnchorPane layoutX="14.0" layoutY="279.0" prefHeight="387.0" prefWidth="987.0" styleClass="shadow" stylesheets="@../../../css/dashboard.css">
+                        <AnchorPane layoutX="14.0" layoutY="279.0" prefHeight="387.0" prefWidth="987.0" styleClass="shadow" stylesheets="@../css/dashboard.css">
                            <children>
                               <PieChart fx:id="titulliPieChart" layoutX="13.0" layoutY="11.0" prefHeight="387.0" prefWidth="429.0" title="Titulli" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="558.0" AnchorPane.topAnchor="0.0" />
                               <PieChart fx:id="drejtimiPieChart" layoutX="450.0" layoutY="-6.0" prefHeight="387.0" prefWidth="537.0" title="Drejtimi" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

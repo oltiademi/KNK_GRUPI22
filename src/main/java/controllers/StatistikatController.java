@@ -116,7 +116,7 @@ public class StatistikatController implements Initializable {
         alert.setTitle("CONFIRMATION");
         alert.setContentText("Are you sure you want to log out?");
         if (alert.showAndWait().get() == ButtonType.OK) {
-            FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+            FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/login.fxml"));
             Parent dashboardRoot = fxmlLoader1.load();
             Scene scene = new Scene(dashboardRoot, 637, 425);
             Stage stage = new Stage();
@@ -129,13 +129,13 @@ public class StatistikatController implements Initializable {
     }
     public void switchForm(ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == dashboard_Btn) {
-            FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
+            FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/dashboard.fxml"));
             Parent dashboardRoot = fxmlLoader1.load();
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             currentStage.getScene().setRoot(dashboardRoot);
             currentStage.show();
         } else if(actionEvent.getSource() == manage_Btn){
-            FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("manage.fxml"));
+            FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/manage.fxml"));
             Parent dashboardRoot = fxmlLoader1.load();
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             currentStage.getScene().setRoot(dashboardRoot);

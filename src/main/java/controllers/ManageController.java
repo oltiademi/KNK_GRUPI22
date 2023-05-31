@@ -1,6 +1,5 @@
 package controllers;
 
-import com.example.knk_grupi22.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -151,7 +150,7 @@ public class ManageController implements Initializable {
             alert.setTitle("CONFIRMATION");
             alert.setContentText("Are you sure you want to log out?");
             if (alert.showAndWait().get() == ButtonType.OK) {
-                FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+                FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/login.fxml"));
                 Parent dashboardRoot = fxmlLoader1.load();
                 Scene scene = new Scene(dashboardRoot, 637, 425);
                 Stage stage = new Stage();
@@ -164,13 +163,13 @@ public class ManageController implements Initializable {
         }
     public void switchForm(ActionEvent actionEvent) throws SQLException, IOException {
         if (actionEvent.getSource() == dashboard_Btn) {
-            FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
+            FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/dashboard.fxml"));
             Parent dashboardRoot = fxmlLoader1.load();
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             currentStage.getScene().setRoot(dashboardRoot);
             currentStage.show();
         } else if(actionEvent.getSource() == statistics_Btn){
-            FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("statistikat.fxml"));
+            FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/statistikat.fxml"));
             Parent dashboardRoot = fxmlLoader1.load();
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             currentStage.getScene().setRoot(dashboardRoot);

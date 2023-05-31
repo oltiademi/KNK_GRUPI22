@@ -129,7 +129,7 @@ public class SignupController implements Initializable {
         }
     }
     public void switchToLogin(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 637, 425);
         Stage stage = new Stage();
         stage.setScene(scene);
