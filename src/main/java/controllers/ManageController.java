@@ -2,8 +2,6 @@ package controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,15 +13,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.Employed;
+import models.dto.CreateEmployedDto;
+import models.dto.UpdateEmployedDto;
+import repository.EmployedRepository;
 import service.ConnectionUtil;
+import service.EmployedService;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.function.Predicate;
+import java.util.*;
 public class ManageController implements Initializable {
     @FXML
     private Label welcome_label;
@@ -107,6 +106,8 @@ public class ManageController implements Initializable {
     private String[] drejtimetBSc = {"Inxhinieri Kompjuterike dhe Softuerike", "Elektronikë, Automatikë dhe Robotikë", "Teknologjite e Informacionit dhe Komunikimit", "Elektroenergjetikë"};
     private String[] drejtimetMsc = {"Inxhinieri Kompjuterike dhe Softuerike", "Elektronikë, Automatikë dhe Robotikë", "Teknologjite e Informacionit dhe Komunikimit"};
     private String[] drejtimetPHD = {"Inxhinieri Kompjuterike dhe Softuerike"};
+    EmployedRepository employedRepository = new EmployedRepository();
+    EmployedService employedService = new EmployedService();
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private Statement statement = null;
@@ -242,12 +243,7 @@ public class ManageController implements Initializable {
     }
 
     public void addEmployed() throws SQLException {
-        String sql = "INSERT INTO employed (id,emri,mbiemri,gjinia,titulli,drejtimi,profesioni,kompania) VALUES (?,?,?,?,?,?,?,?)";
-        String ekziston = "SELECT emri, mbiemri, gjinia, titulli, drejtimi, profesioni, kompania FROM employed WHERE id = '" + tf_ID.getText() +"'";
-        Alert alert;
-        connection = ConnectionUtil.getConnection();
-
-        try{
+        try {
             if(tf_ID.getText().isEmpty()
                     || tf_Emri.getText().isEmpty()
                     || tf_Mbiemri.getText().isEmpty()
@@ -258,53 +254,35 @@ public class ManageController implements Initializable {
                     || radio_Mashkull == null
                     || radio_Femer == null
                     || radio_Other == null){
-                alert = new Alert(Alert.AlertType.ERROR);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR");
                 alert.setHeaderText(null);
                 alert.setContentText("Fill all blank fields!");
                 alert.showAndWait();
-            }
-            else {
-                preparedStatement = connection.prepareStatement(ekziston);
-                resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()){
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("ERROR");
+            } else {
+                    employedService.createEmployed(   // shto punetorin
+                            new CreateEmployedDto(tf_ID.getText(),
+                            tf_Emri.getText(),
+                            tf_Mbiemri.getText(),
+                            radio_Mashkull.getText(),
+                            comboBox_Titulli.getValue(),
+                            comboBox_Drejtimi.getValue(),
+                            tf_Profesioni.getText(),
+                            tf_Kompania.getText()));
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information");
                     alert.setHeaderText(null);
-                    alert.setContentText("User exists!");
+                    alert.setContentText("Added successfully!");
                     alert.showAndWait();
-                }else {
-                    String gjinia = "";
-                    RadioButton selectedRadioButton = (RadioButton) gjiniaToggleGroup.getSelectedToggle();
-                    if (selectedRadioButton != null) {
-                        gjinia = selectedRadioButton.getText();
-
-                        preparedStatement = connection.prepareStatement(sql);
-                        preparedStatement.setString(1, tf_ID.getText());
-                        preparedStatement.setString(2, tf_Emri.getText());
-                        preparedStatement.setString(3, tf_Mbiemri.getText());
-                        preparedStatement.setString(4, gjinia);
-                        preparedStatement.setString(5, comboBox_Titulli.getSelectionModel().getSelectedItem());
-                        preparedStatement.setString(6, comboBox_Drejtimi.getSelectionModel().getSelectedItem());
-                        preparedStatement.setString(7, tf_Profesioni.getText());
-                        preparedStatement.setString(8, tf_Kompania.getText());
-                        preparedStatement.executeUpdate();
-                        alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Information");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Added succesfully!");
-                        alert.showAndWait();
-                        showEmployedListData();
-                        filteredSearch();
-                    }
+                    showEmployedListData();
                 }
-            }
-        }
-        catch (SQLException e){
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void clearEmployed(){
+
+    public void clearEmployed() {
         tf_ID.setText("");
         tf_Emri.setText("");
         tf_Mbiemri.setText("");
@@ -314,113 +292,78 @@ public class ManageController implements Initializable {
         tf_Profesioni.setText("");
         tf_Kompania.setText("");
     }
-    public void deleteEmployed() throws SQLException {
-        String sql = "DELETE FROM employed WHERE id = '" + tf_ID.getText() + "'";
-        connection = ConnectionUtil.getConnection();
 
-        RadioButton selectedRadioButton = (RadioButton) gjiniaToggleGroup.getSelectedToggle();
-        if (selectedRadioButton != null) {
-            if(tf_Emri.getText().isEmpty()
-                    || tf_Mbiemri.getText().isEmpty()
-                    || tf_Profesioni.getText().isEmpty()
-                    || tf_Kompania.getText().isEmpty()
-                    || comboBox_Titulli.getSelectionModel().getSelectedItem() == null
-                    || comboBox_Drejtimi.getSelectionModel().getSelectedItem() == null
-                    || selectedRadioButton.equals(null)){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ERROR");
-                alert.setHeaderText(null);
-                alert.setContentText("Fill all blank fields!");
-                alert.showAndWait();
-            }else{
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("CONFIRMATION");
-                alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to delete this user?");
-                Optional<ButtonType> optionalButtonType = alert.showAndWait();
-                if(optionalButtonType.get().equals(ButtonType.OK)){
-                    statement = connection.createStatement();
-                    statement.executeUpdate(sql);
-                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                    alert1.setTitle("INFORMATION");
-                    alert1.setHeaderText(null);
-                    alert1.setContentText("User deleted succesfully!");
-                    alert1.showAndWait();
-                    showEmployedListData();
-                    clearEmployed();
-                }
+    public void deleteEmployed() throws SQLException {
+        if (tf_ID.getText().isEmpty()
+                || tf_Emri.getText().isEmpty()
+                || tf_Mbiemri.getText().isEmpty()
+                || tf_Profesioni.getText().isEmpty()
+                || tf_Kompania.getText().isEmpty()
+                || comboBox_Titulli.getSelectionModel().getSelectedItem() == null
+                || comboBox_Drejtimi.getSelectionModel().getSelectedItem() == null
+                || gjiniaToggleGroup.getSelectedToggle() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText(null);
+            alert.setContentText("Fill all blank fields!");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("CONFIRMATION");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete this user?");
+            Optional<ButtonType> optionalButtonType = alert.showAndWait();
+            if (optionalButtonType.isPresent() && optionalButtonType.get().equals(ButtonType.OK)) {
+                employedService.deleteEmployed(tf_ID.getText()); // fshij punetorin
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("INFORMATION");
+                alert1.setHeaderText(null);
+                alert1.setContentText("User deleted successfully!");
+                alert1.showAndWait();
+                showEmployedListData();
+                clearEmployed();
             }
         }
     }
+
     public void updateEmployed() throws SQLException {
-        String gjinia;
-        RadioButton selectedRadioButton = (RadioButton) gjiniaToggleGroup.getSelectedToggle();
-        gjinia = selectedRadioButton.getText();
-
-        if (selectedRadioButton != null) {
-            String sql = "UPDATE employed SET "
-                    + "emri = '" + tf_Emri.getText()
-                    + "', mbiemri = '" + tf_Mbiemri.getText()
-                    + "', gjinia = '" + gjinia
-                    + "', titulli = '" + comboBox_Titulli.getSelectionModel().getSelectedItem()
-                    + "', drejtimi = '" + comboBox_Drejtimi.getSelectionModel().getSelectedItem()
-                    + "', profesioni = '" + tf_Profesioni.getText()
-                    + "', kompania = '" + tf_Kompania.getText() + "' WHERE id = '" + tf_ID.getText() + "'";
-            connection = ConnectionUtil.getConnection();
-
+        if (tf_ID.getText().isEmpty()
+                || tf_Emri.getText().isEmpty()
+                || tf_Mbiemri.getText().isEmpty()
+                || tf_Profesioni.getText().isEmpty()
+                || tf_Kompania.getText().isEmpty()
+                || comboBox_Titulli.getSelectionModel().getSelectedItem() == null
+                || comboBox_Drejtimi.getSelectionModel().getSelectedItem() == null
+                || gjiniaToggleGroup.getSelectedToggle() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText(null);
+            alert.setContentText("Fill all blank fields!");
+            alert.showAndWait();
+        }else{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("CONFIRMATION");
             alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to update this user?");
             Optional<ButtonType> optionalButtonType = alert.showAndWait();
-            if(optionalButtonType.get().equals(ButtonType.OK)) {
-                statement = connection.createStatement();
-                statement.executeUpdate(sql);
+            if (optionalButtonType.isPresent() && optionalButtonType.get().equals(ButtonType.OK)) {
+                employedService.updateEmployed(new UpdateEmployedDto(tf_ID.getText(), //perditeso punetorin
+                        tf_Emri.getText(),
+                        tf_Mbiemri.getText(),
+                        radio_Mashkull.getText(),
+                        comboBox_Titulli.getValue(),
+                        comboBox_Drejtimi.getValue(),
+                        tf_Profesioni.getText(),
+                        tf_Kompania.getText()));
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("INFORMATION");
                 alert1.setHeaderText(null);
-                alert1.setContentText("User updated succesfully!");
+                alert1.setContentText("User updated successfully!");
                 alert1.showAndWait();
                 showEmployedListData();
             }
         }
     }
-    public void filteredSearch(){
-        FilteredList<Employed> filteredList = new FilteredList<>(empList, e-> true);
-        table_search.setOnKeyTyped(e->{
-            table_search.textProperty().addListener((observableValue, oldValue, newValue) -> {
-                filteredList.setPredicate((Predicate<? super Employed>) employed -> {
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
-                    String searchWord = newValue.toLowerCase();
-
-                    if (employed.getId().contains(searchWord)) {
-                        return true;
-                    } else if (employed.getEmri().toLowerCase().contains(searchWord)) {
-                        return true;
-                    } else if (employed.getMbiemri().toLowerCase().contains(searchWord)) {
-                        return true;
-                    }else if (employed.getGjinia().toLowerCase().contains(searchWord)) {
-                        return true;
-                    }else if (employed.getTitulli().toLowerCase().contains(searchWord)) {
-                        return true;
-                    }else if (employed.getDrejtimi().toLowerCase().contains(searchWord)) {
-                        return true;
-                    }else if (employed.getProfesioni().toLowerCase().contains(searchWord)) {
-                        return true;
-                    }else if (employed.getKompania().toLowerCase().contains(searchWord)) {
-                        return true;
-                    }
-                    return false;
-                });
-            });
-            final SortedList<Employed> sortedList = new SortedList<>(filteredList);
-            sortedList.comparatorProperty().bind(tableView_Employed.comparatorProperty());
-            tableView_Employed.setItems(sortedList);
-        });
-    }
-
     public void changeLanguage(){
         ToggleGroup languageToggleGroup = new ToggleGroup();
         language_AL_button.setToggleGroup(languageToggleGroup);

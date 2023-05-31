@@ -1,16 +1,22 @@
 package models.dto;
 
 public class UpdateUserDto {
-    private int id;
+    private String email;
+    private String salt;
     private String saltedPassword;
 
-    public UpdateUserDto(int id, String saltedPassword) {
-        this.id = id;
+    public UpdateUserDto(String email, String salt, String saltedPassword) {
+        this.email = email;
+        this.salt=salt;
         this.saltedPassword = saltedPassword;
     }
 
-    public int getId() {
-        return id;
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSalt() {
+        return salt;
     }
 
     public String getSaltedPassword() {

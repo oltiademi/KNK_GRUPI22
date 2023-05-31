@@ -34,31 +34,20 @@ public class LoginController implements Initializable {
     private Button forgotPassword_btn;
     @FXML
     private RadioButton language_AL_button;
-
     @FXML
     private RadioButton language_EN_button;
     @FXML
-    private Button ButtonshowPassword;
-    @FXML
     private Button hideBtn;
-
     @FXML
     private Label notRegisteredLabel = new Label();
-
     @FXML
     private CheckBox rememberMeCheckbox;
     @FXML
     private TextField tf_Username;
-
     @FXML
     private TextField textfieldPassword;
-
     @FXML
     private PasswordField tf_Password;
-    private ConnectionUtil connectionUtil;
-    private Connection conn = null;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
     UserService userService = new UserService();
     private static final String CONFIG_FILE = "config.remember.properties";
 
@@ -96,7 +85,6 @@ public class LoginController implements Initializable {
             configFile.delete();
         }
     }
-
     public void showPassword() {
         textfieldPassword.setText(tf_Password.getText());
         textfieldPassword.setVisible(true);
@@ -104,14 +92,12 @@ public class LoginController implements Initializable {
         hideBtn.setVisible(true);
 
     }
-
     public void hidePassword() {
         tf_Password.setText(textfieldPassword.getText());
         tf_Password.setVisible(true);
         textfieldPassword.setVisible(false);
         hideBtn.setVisible(false);
     }
-
     public void Login(ActionEvent actionEvent) throws IOException, SQLException {
         if (actionEvent.getSource() == login_Btn) {
 
@@ -155,9 +141,6 @@ public class LoginController implements Initializable {
             }
         }
     }
-
-
-
     public void switchToSignUp(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/sign-up.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 750, 400);
@@ -187,7 +170,6 @@ public class LoginController implements Initializable {
             stage.show();
         }
     }
-
     public void changeLanguage() {
         ToggleGroup languageToggleGroup = new ToggleGroup();
         language_AL_button.setToggleGroup(languageToggleGroup);

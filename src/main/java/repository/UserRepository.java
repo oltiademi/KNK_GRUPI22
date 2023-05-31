@@ -1,15 +1,12 @@
 package repository;
 
-
 import models.Pagination;
 import models.dto.CreateUserDto;
 import models.dto.UpdateUserDto;
 import models.dto.UserFilter;
-import repository.interfaces.BaseInterface;
 import repository.interfaces.UserRepositoryInterface;
 import service.ConnectionUtil;
 import models.User;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,18 +30,6 @@ public class UserRepository implements UserRepositoryInterface {
 
         return UserRepository.getByUsername(user.getUsername());
     }
-
-    public static User get(String columnName, Object value) throws SQLException{
-        String sql = "SELECT * FROM users WHERE ?=?";
-        Connection connection = ConnectionUtil.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setObject(1, columnName);
-        statement.setObject(2, value);
-        ResultSet res = statement.executeQuery();
-//        ...
-        return null;
-    }
-
     public static User getByUsername(String username) throws SQLException {
         String sql = "SELECT * FROM users WHERE username = ?";
         try (Connection connection = ConnectionUtil.getConnection();
@@ -91,15 +76,27 @@ public class UserRepository implements UserRepositoryInterface {
 
         return users;
     }
-
-    public static User update(UpdateUserDto user) throws SQLException{
-        String sql = "UPDATE user SET saltedHash = ? WHERE id = ?";
-        Connection conn = ConnectionUtil.getConnection();
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
-        preparedStatement.setObject(1, user.getSaltedPassword());
-        preparedStatement.setObject(2, user.getId());
-        preparedStatement.executeUpdate();
-
-        return UserRepository.get("email", user.getId());
+    public static boolean checkEmail(UpdateUserDto user) throws SQLException {
+        String checkEmail = "SELECT * FROM users WHERE email = ?";
+        Connection connection = ConnectionUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(checkEmail);
+        statement.setString(1, user.getEmail());
+        ResultSet resultSet = statement.executeQuery();
+        if(resultSet.next()){
+            return true;
+        }
+        return false;
+    }
+    public static User update(UpdateUserDto user) throws SQLException {
+        if (checkEmail(user)) {
+            String sql = "UPDATE users SET salt = ?, saltedHash = ? WHERE email = ?";
+            Connection conn = ConnectionUtil.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setObject(1, user.getSalt());
+            preparedStatement.setObject(2, user.getSaltedPassword());
+            preparedStatement.setObject(3, user.getEmail());
+            preparedStatement.executeUpdate();
+        }
+        return null;
     }
 }

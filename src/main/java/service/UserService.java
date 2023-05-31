@@ -21,6 +21,10 @@ public class UserService implements UserServiceInterface {
         this.userRepository = new UserRepository();
     }
 
+    public static boolean checkEmail(UpdateUserDto updateUser) throws SQLException {
+        return UserRepository.checkEmail(updateUser);
+    }
+
     public User login(String username, String password) throws SQLException {
         User loginUser = UserRepository.getByUsername(username);
         if (loginUser == null) {
