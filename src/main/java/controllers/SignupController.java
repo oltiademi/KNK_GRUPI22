@@ -9,13 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import service.ConnectionUtil;
 import service.UserService;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -23,66 +19,37 @@ import java.util.ResourceBundle;
 public class SignupController implements Initializable {
     @FXML
     private Label alreadyHave_Label;
-
     @FXML
     private Button buttonShowPassword;
-
     @FXML
     private TextField email;
-
-    @FXML
-    private Label email_Label;
-
     @FXML
     private TextField firstName;
-
     @FXML
     private Label firstName_Label;
-
     @FXML
     private Button hideBtn;
-
     @FXML
     private RadioButton language_AL_button1;
-
     @FXML
     private RadioButton language_EN_button1;
-
     @FXML
     private TextField lastName;
-
     @FXML
     private Label lastName_Label;
-
     @FXML
     private PasswordField password;
-
     @FXML
     private Label password_Label;
-
-    @FXML
-    private Label phoneNumLabel;
-
-    @FXML
-    private Button signUpBtn;
-
     @FXML
     private Button switchToLogin_Btn;
-
     @FXML
     private TextField textfieldPassword;
-
     @FXML
     private TextField username;
-
     @FXML
     private Label username_Label;
     UserService userService = new UserService();
-
-    private ConnectionUtil connectionUtil;
-    private Connection conn = null;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
     public void showPassword(){
         textfieldPassword.setText(password.getText());
         textfieldPassword.setVisible(true);
@@ -99,13 +66,11 @@ public class SignupController implements Initializable {
     }
 
     public void signUp(){
-
         String first = firstName.getText();
         String last = lastName.getText();
         String Email = email.getText();
         String user = username.getText();
         String pw = password.getText();
-
         try {
             if(first.isEmpty() || last.isEmpty() || Email.isEmpty() || user.isEmpty() || pw.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -151,8 +116,6 @@ public class SignupController implements Initializable {
                 password_Label.setText(bundle.getString("password"));
                 alreadyHave_Label.setText(bundle.getString("alreadyHave"));
                 switchToLogin_Btn.setText(bundle.getString("button.login.name"));
-
-
             } else if (newToggle == language_EN_button1) {
                 Locale currentLocale = new Locale("sq", "US");
                 ResourceBundle bundle = ResourceBundle.getBundle("translations.content_en", currentLocale);
@@ -166,12 +129,10 @@ public class SignupController implements Initializable {
                 password_Label.setText(bundle.getString("password"));
                 alreadyHave_Label.setText(bundle.getString("alreadyHave"));
                 switchToLogin_Btn.setText(bundle.getString("button.login.name"));
-
             }
         });
         languageToggleGroup.selectToggle(language_AL_button1);
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeLanguage();

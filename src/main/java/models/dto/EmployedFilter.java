@@ -1,6 +1,5 @@
 package models.dto;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class EmployedFilter {
     String profesioni;
     String kompania;
 
-    public EmployedFilter(String id,String emri, String mbiemri, String gjinia, String titulli, String drejtimi, String profesioni, String kompania) {
+    public EmployedFilter(String id,String emri, String mbiemri,String gjinia, String titulli, String drejtimi, String profesioni, String kompania) {
         this.id = id;
         this.emri = emri;
         this.mbiemri = mbiemri;
@@ -26,7 +25,7 @@ public class EmployedFilter {
     }
 
     public String getIdQuery() {
-        return " id LIKE ?";
+        return " AND (id LIKE ?";
     }
     public String getEmriQuery() {
         return " OR emri LIKE ?";
@@ -44,28 +43,31 @@ public class EmployedFilter {
         return " OR profesioni LIKE ?";
     }
     public String getKompaniaQuery() {
-        return " OR kompania LIKE ?";
+        return " OR kompania LIKE ?)";
     }
 
     public String getFilterQuery() {
-        StringBuilder queryBuilder = new StringBuilder(" AND ");
+        StringBuilder queryBuilder = new StringBuilder();
 
         if (id != null && !id.isEmpty()) {
             queryBuilder.append(getIdQuery());
         }
         if (emri != null && !emri.isEmpty()) {
             queryBuilder.append(getEmriQuery());
-        }if (mbiemri != null && !mbiemri.isEmpty()) {
+        }
+        if (mbiemri != null && !mbiemri.isEmpty()) {
             queryBuilder.append(getMbiemriQuery());
         }
         if (gjinia != null && !gjinia.isEmpty()) {
             queryBuilder.append(getGjiniaQuery());
-        }if (titulli != null && !titulli.isEmpty()) {
+        }
+        if (titulli != null && !titulli.isEmpty()) {
             queryBuilder.append(getTitulliQuery());
         }
         if (drejtimi != null && !drejtimi.isEmpty()) {
             queryBuilder.append(getDrejtimiQuery());
-        }if (profesioni != null && !profesioni.isEmpty()) {
+        }
+        if (profesioni != null && !profesioni.isEmpty()) {
             queryBuilder.append(getProfesioniQuery());
         }
         if (kompania != null && !kompania.isEmpty()) {
@@ -74,7 +76,6 @@ public class EmployedFilter {
 
         return queryBuilder.toString();
     }
-
     public List<Object> getFilterParams() {
         List<Object> params = new ArrayList<>();
 
@@ -89,12 +90,14 @@ public class EmployedFilter {
         }
         if (gjinia != null && !gjinia.isEmpty()) {
             params.add("%" + gjinia + "%");
-        }if (titulli != null && !titulli.isEmpty()) {
+        }
+        if (titulli != null && !titulli.isEmpty()) {
             params.add("%" + titulli + "%");
         }
         if (drejtimi != null && !drejtimi.isEmpty()) {
             params.add("%" + drejtimi + "%");
-        }if (profesioni != null && !profesioni.isEmpty()) {
+        }
+        if (profesioni != null && !profesioni.isEmpty()) {
             params.add("%" + profesioni + "%");
         }
         if (kompania != null && !kompania.isEmpty()) {

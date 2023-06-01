@@ -1,12 +1,12 @@
 package service;
 
+import javafx.collections.ObservableList;
 import models.Employed;
 import models.dto.CreateEmployedDto;
 import models.dto.EmployedFilter;
 import models.dto.UpdateEmployedDto;
 import repository.EmployedRepository;
 import repository.interfaces.EmployedRepositoryInterface;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,6 +21,9 @@ public class EmployedService {
     }
     public List<Employed> getEmployedByFilter(EmployedFilter filter) throws SQLException {
         return employedRepository.getEmployedByFilter(filter);
+    }
+    public ObservableList<Employed> showEmployedList(){
+        return employedRepository.showEmployedList();
     }
     public void deleteEmployed(String id) throws SQLException {
         employedRepository.deleteEmployed(id);

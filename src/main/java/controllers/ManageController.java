@@ -14,11 +14,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.Employed;
 import models.dto.CreateEmployedDto;
+import models.dto.EmployedFilter;
 import models.dto.UpdateEmployedDto;
-import repository.EmployedRepository;
-import service.ConnectionUtil;
 import service.EmployedService;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -79,13 +77,10 @@ public class ManageController implements Initializable {
     private TableColumn<Employed, Integer> tableView_ID;
     @FXML
     private TableColumn<Employed, String> tableView_Kompania;
-
     @FXML
     private TableColumn<Employed, String> tableView_Mbiemri;
-
     @FXML
     private TableColumn<Employed, String> tableView_Profesioni;
-
     @FXML
     private TableColumn<Employed, String> tableView_Titulli;
     @FXML
@@ -102,37 +97,32 @@ public class ManageController implements Initializable {
     private TextField tf_Profesioni;
     @FXML
     private Button statistics_Btn;
-    private String[] titujt= {"Baçelor(BSc)", "Master(MSc)", "Doktoraturë(PHD)"};
+    private String[] titujt = {"Baçelor(BSc)", "Master(MSc)", "Doktoraturë(PHD)"};
     private String[] drejtimetBSc = {"Inxhinieri Kompjuterike dhe Softuerike", "Elektronikë, Automatikë dhe Robotikë", "Teknologjite e Informacionit dhe Komunikimit", "Elektroenergjetikë"};
     private String[] drejtimetMsc = {"Inxhinieri Kompjuterike dhe Softuerike", "Elektronikë, Automatikë dhe Robotikë", "Teknologjite e Informacionit dhe Komunikimit"};
     private String[] drejtimetPHD = {"Inxhinieri Kompjuterike dhe Softuerike"};
-    EmployedRepository employedRepository = new EmployedRepository();
     EmployedService employedService = new EmployedService();
-    private Connection connection = null;
-    private PreparedStatement preparedStatement = null;
-    private Statement statement = null;
-    private ResultSet resultSet = null;
-
-    public void listaTitujve(){
+    public void listaTitujve() {
         ArrayList<String> listaTitujv = new ArrayList<>();
-        for(String i: titujt){
+        for (String i : titujt) {
             listaTitujv.add(i);
         }
         ObservableList ob = FXCollections.observableArrayList(listaTitujv);
         comboBox_Titulli.setItems(ob);
     }
-    public void listaDrejtimev(){
+
+    public void listaDrejtimev() {
         comboBox_Titulli.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                if(newValue.equals("Baçelor(BSc)")) {
+                if (newValue.equals("Baçelor(BSc)")) {
                     comboBox_Drejtimi.getItems().clear();
                     comboBox_Drejtimi.getItems().addAll(drejtimetBSc);
                     comboBox_Drejtimi.setValue("Inxhinieri Kompjuterike dhe Softuerike");
-                } else if(newValue.equals("Master(MSc)")){
+                } else if (newValue.equals("Master(MSc)")) {
                     comboBox_Drejtimi.getItems().clear();
                     comboBox_Drejtimi.getItems().addAll(drejtimetMsc);
                     comboBox_Drejtimi.setValue("Inxhinieri Kompjuterike dhe Softuerike");
-                } else if(newValue.equals("Doktoraturë(PHD)")){
+                } else if (newValue.equals("Doktoraturë(PHD)")) {
                     comboBox_Drejtimi.getItems().clear();
                     comboBox_Drejtimi.getItems().addAll(drejtimetPHD);
                     comboBox_Drejtimi.setValue("Inxhinieri Kompjuterike dhe Softuerike");
@@ -140,28 +130,29 @@ public class ManageController implements Initializable {
                     clearEmployed();
                 }
             }
-            if(newValue == null){
+            if (newValue == null) {
                 clearEmployed();
             }
         });
     }
     public void logout() throws IOException {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText(null);
-            alert.setTitle("CONFIRMATION");
-            alert.setContentText("Are you sure you want to log out?");
-            if (alert.showAndWait().get() == ButtonType.OK) {
-                FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/login.fxml"));
-                Parent dashboardRoot = fxmlLoader1.load();
-                Scene scene = new Scene(dashboardRoot, 637, 425);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                Node source = logout_Btn;
-                Stage currentStage = (Stage) source.getScene().getWindow();
-                currentStage.hide();
-                stage.show();
-            }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("CONFIRMATION");
+        alert.setContentText("Are you sure you want to log out?");
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+            Parent dashboardRoot = fxmlLoader1.load();
+            Scene scene = new Scene(dashboardRoot, 637, 425);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            Node source = logout_Btn;
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.hide();
+            stage.show();
         }
+    }
+
     public void switchForm(ActionEvent actionEvent) throws SQLException, IOException {
         if (actionEvent.getSource() == dashboard_Btn) {
             FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/dashboard.fxml"));
@@ -169,7 +160,7 @@ public class ManageController implements Initializable {
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             currentStage.getScene().setRoot(dashboardRoot);
             currentStage.show();
-        } else if(actionEvent.getSource() == statistics_Btn){
+        } else if (actionEvent.getSource() == statistics_Btn) {
             FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/statistikat.fxml"));
             Parent dashboardRoot = fxmlLoader1.load();
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -177,35 +168,10 @@ public class ManageController implements Initializable {
             currentStage.show();
         }
     }
-
-    public ObservableList<Employed> showEmployedList() {
-        ObservableList<Employed> employedList = FXCollections.observableArrayList();
-
-        String sql = "SELECT * FROM employed";
-        try {
-            Employed employed;
-            connection = ConnectionUtil.getConnection();
-            preparedStatement = connection.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                employed = new Employed(resultSet.getString("id"),
-                        resultSet.getString("emri"),
-                        resultSet.getString("mbiemri"),
-                        resultSet.getString("gjinia"),
-                        resultSet.getString("titulli"),
-                        resultSet.getString("drejtimi"),
-                        resultSet.getString("profesioni"),
-                        resultSet.getString("kompania"));
-
-                employedList.add(employed);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return employedList;
+    public ObservableList<Employed> showEmployedList(){
+        return employedService.showEmployedList();
     }
     private ObservableList<Employed> empList;
-
     public void showEmployedListData() {
         empList = showEmployedList();
         tableView_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -218,11 +184,11 @@ public class ManageController implements Initializable {
         tableView_Kompania.setCellValueFactory(new PropertyValueFactory<>("kompania"));
         tableView_Employed.setItems(empList);
     }
-    public void showDataOnTextfields(){
+    public void showDataOnTextfields() {
         Employed employed = tableView_Employed.getSelectionModel().getSelectedItem();
         int n = tableView_Employed.getSelectionModel().getSelectedIndex();
 
-        if((n-1) < -1){
+        if ((n - 1) < -1) {
             return;
         }
         tf_ID.setText(String.valueOf(employed.getId()));
@@ -244,7 +210,7 @@ public class ManageController implements Initializable {
 
     public void addEmployed() throws SQLException {
         try {
-            if(tf_ID.getText().isEmpty()
+            if (tf_ID.getText().isEmpty()
                     || tf_Emri.getText().isEmpty()
                     || tf_Mbiemri.getText().isEmpty()
                     || tf_Profesioni.getText().isEmpty()
@@ -253,29 +219,31 @@ public class ManageController implements Initializable {
                     || comboBox_Drejtimi.getSelectionModel().getSelectedItem() == null
                     || radio_Mashkull == null
                     || radio_Femer == null
-                    || radio_Other == null){
+                    || radio_Other == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR");
                 alert.setHeaderText(null);
                 alert.setContentText("Fill all blank fields!");
                 alert.showAndWait();
             } else {
-                    employedService.createEmployed(   // shto punetorin
-                            new CreateEmployedDto(tf_ID.getText(),
-                            tf_Emri.getText(),
-                            tf_Mbiemri.getText(),
-                            radio_Mashkull.getText(),
-                            comboBox_Titulli.getValue(),
-                            comboBox_Drejtimi.getValue(),
-                            tf_Profesioni.getText(),
-                            tf_Kompania.getText()));
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Added successfully!");
-                    alert.showAndWait();
-                    showEmployedListData();
-                }
+                RadioButton selectedRadioButton = (RadioButton) gjiniaToggleGroup.getSelectedToggle();
+                String gjinia = selectedRadioButton.getText();
+                employedService.createEmployed(   // shto punetorin
+                        new CreateEmployedDto(tf_ID.getText(),
+                                tf_Emri.getText(),
+                                tf_Mbiemri.getText(),
+                                gjinia,
+                                comboBox_Titulli.getValue(),
+                                comboBox_Drejtimi.getValue(),
+                                tf_Profesioni.getText(),
+                                tf_Kompania.getText()));
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information");
+                alert.setHeaderText(null);
+                alert.setContentText("Added successfully!");
+                alert.showAndWait();
+                showEmployedListData();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -340,17 +308,19 @@ public class ManageController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Fill all blank fields!");
             alert.showAndWait();
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("CONFIRMATION");
             alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to update this user?");
             Optional<ButtonType> optionalButtonType = alert.showAndWait();
             if (optionalButtonType.isPresent() && optionalButtonType.get().equals(ButtonType.OK)) {
+                RadioButton selectedRadioButton = (RadioButton) gjiniaToggleGroup.getSelectedToggle();
+                String gjinia = selectedRadioButton.getText();
                 employedService.updateEmployed(new UpdateEmployedDto(tf_ID.getText(), //perditeso punetorin
                         tf_Emri.getText(),
                         tf_Mbiemri.getText(),
-                        radio_Mashkull.getText(),
+                        gjinia,
                         comboBox_Titulli.getValue(),
                         comboBox_Drejtimi.getValue(),
                         tf_Profesioni.getText(),
@@ -363,6 +333,19 @@ public class ManageController implements Initializable {
                 showEmployedListData();
             }
         }
+    }
+    public void filteredSearch(){
+        table_search.setOnKeyTyped(event -> {
+            String searchText = table_search.getText();
+
+            try {
+                ArrayList<Employed> filteredList = (ArrayList<Employed>) employedService.getEmployedByFilter(new EmployedFilter(searchText, searchText, searchText, searchText, searchText, searchText, searchText, searchText));
+                ObservableList<Employed> filteredData = FXCollections.observableArrayList(filteredList);
+                tableView_Employed.setItems(filteredData);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
     public void changeLanguage(){
         ToggleGroup languageToggleGroup = new ToggleGroup();

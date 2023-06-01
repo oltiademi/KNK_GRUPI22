@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1350.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controllers.ManageController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManageController">
     <children>
         <AnchorPane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -110,7 +110,7 @@
                                                 <TableColumn fx:id="tableView_Kompania" prefWidth="121.5999755859375" text="Kompania" />
                                             </columns>
                                         </TableView>
-                                        <TextField fx:id="table_search" alignment="CENTER_RIGHT" layoutX="671.0" layoutY="18.0"  prefHeight="36.0" prefWidth="335.0" promptText="Search" styleClass="textfield" stylesheets="@../css/dashboard.css" AnchorPane.rightAnchor="9.800000000000011">
+                                        <TextField fx:id="table_search" alignment="CENTER_RIGHT" layoutX="671.0" layoutY="18.0" onKeyTyped="#filteredSearch" prefHeight="36.0" prefWidth="335.0" promptText="Search" styleClass="textfield" stylesheets="@../css/dashboard.css" AnchorPane.rightAnchor="9.800000000000011">
                                             <padding>
                                                 <Insets right="35.0" />
                                             </padding>
