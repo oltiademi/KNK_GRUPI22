@@ -117,9 +117,7 @@ public class LoginController implements Initializable {
                     }
                     FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/dashboard.fxml"));
                     Parent dashboardRoot = fxmlLoader1.load();
-                    // Create a Scene for the dashboard
                     Scene scene = new Scene(dashboardRoot, 1300, 700);
-                    // Create a Stage for the dashboard
                     Stage stage = new Stage();
                     stage.setTitle("E-Alumni");
                     stage.setScene(scene);

@@ -1,6 +1,5 @@
 package controllers;
 
-import com.example.knk_grupi22.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,11 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import service.ConnectionUtil;
+import service.StatistikatService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class StatistikatController implements Initializable {
@@ -106,9 +106,7 @@ public class StatistikatController implements Initializable {
     @FXML
     private Label welcome_label;
 
-    private Connection connection = null;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
+     StatistikatService statistikatService = new StatistikatService();
 
     public void logout() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -143,133 +141,61 @@ public class StatistikatController implements Initializable {
         }
     }
     public void bachelor() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE titulli = 'Baçelor(BSc)'";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalStudents = statistikatService.getBachelorCount();
         bachelor.setText(String.valueOf(totalStudents));
     }
     public void master() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE titulli = 'Master(MSc)'";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalStudents = statistikatService.getMasterCount();
         master.setText(String.valueOf(totalStudents));
     }
     public void doktorature() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE titulli = 'Doktoraturë(PHD)'";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalStudents = statistikatService.getDoktoratureCount();
         doktorature.setText(String.valueOf(totalStudents));
     }
     public void iks_bachelor() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE titulli = 'Baçelor(BSc)' AND drejtimi = 'Inxhinieri Kompjuterike dhe Softuerike'";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalStudents = statistikatService.getIKSBachelorCount();
         iks_bachelor.setText(String.valueOf(totalStudents));
     }
     public void iks_master() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE titulli = 'Master(MSc)' AND drejtimi = 'Inxhinieri Kompjuterike dhe Softuerike'";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalStudents = statistikatService.getIKSMasterCount();
         iks_master.setText(String.valueOf(totalStudents));
     }
     public void ear_bachelor() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE titulli = 'Baçelor(BSc)' AND drejtimi = 'Elektronikë, Automatikë dhe Robotikë'";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalStudents = statistikatService.getEARBachelorCount();
         ear_bachelor.setText(String.valueOf(totalStudents));
     }
     public void ear_master() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE titulli = 'Master(MSc)' AND drejtimi = 'Elektronikë, Automatikë dhe Robotikë'";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalStudents = statistikatService.getEARMasterCount();
         ear_master.setText(String.valueOf(totalStudents));
     }
     public void tik_bachelor() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE titulli = 'Baçelor(BSc)' AND drejtimi = 'Teknologjite e Informacionit dhe Komunikimit'";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalStudents = statistikatService.getTIKBachelorCount();
         tik_bachelor.setText(String.valueOf(totalStudents));
     }
     public void tik_master() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE titulli = 'Master(MSc)' AND drejtimi = 'Teknologjite e Informacionit dhe Komunikimit'";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalStudents = statistikatService.getTIKMasterCount();
         tik_master.setText(String.valueOf(totalStudents));
     }
-    public void elektronergjetike_bachelor() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE titulli = 'Baçelor(BSc)' AND drejtimi = 'Elektroenergjetikë'";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+    public void elektroenergjetike_bachelor() throws SQLException {
+        int totalStudents = statistikatService.getElektroenergjetikeBachelorCount();
         elektroenergjetike_bachelor.setText(String.valueOf(totalStudents));
     }
     public void titulliChart() throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT titulli, COUNT(*) FROM employed GROUP BY titulli");
         titulliPieChart.getData().clear();
-        while (resultSet.next()) {
-            String titulli = resultSet.getString("titulli");
-            int count = resultSet.getInt("COUNT(*)");
+        Map<String, Integer> chartData = statistikatService.getTitulliChartData();
+        for (Map.Entry<String, Integer> entry : chartData.entrySet()) {
+            String titulli = entry.getKey();
+            int count = entry.getValue();
             PieChart.Data data = new PieChart.Data(titulli, count);
             titulliPieChart.getData().add(data);
         }
     }
     public void drejtimiChart() throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT drejtimi, COUNT(*) FROM employed GROUP BY drejtimi");
         drejtimiPieChart.getData().clear();
-        while (resultSet.next()) {
-            String drejtimi = resultSet.getString("drejtimi");
-            int count = resultSet.getInt("COUNT(*)");
+        Map<String, Integer> chartData = statistikatService.getDrejtimiChartData();
+        for (Map.Entry<String, Integer> entry : chartData.entrySet()) {
+            String drejtimi = entry.getKey();
+            int count = entry.getValue();
             PieChart.Data data = new PieChart.Data(drejtimi, count);
             drejtimiPieChart.getData().add(data);
         }
@@ -333,7 +259,7 @@ public class StatistikatController implements Initializable {
             tik_master();
             titulliChart();
             drejtimiChart();
-            elektronergjetike_bachelor();
+            elektroenergjetike_bachelor();
         }catch (SQLException e){
             e.printStackTrace();
         }

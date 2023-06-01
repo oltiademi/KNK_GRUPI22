@@ -7,10 +7,12 @@ import models.dto.EmployedFilter;
 import models.dto.UpdateEmployedDto;
 import repository.EmployedRepository;
 import repository.interfaces.EmployedRepositoryInterface;
+import service.interfaces.EmployedServiceInterface;
+
 import java.sql.SQLException;
 import java.util.List;
 
-public class EmployedService {
+public class EmployedService implements EmployedServiceInterface {
     private EmployedRepositoryInterface employedRepository;
 
     public EmployedService() {

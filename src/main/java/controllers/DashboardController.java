@@ -1,6 +1,5 @@
 package controllers;
 
-import com.example.knk_grupi22.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,11 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import service.ConnectionUtil;
+import service.DashboardService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 public class DashboardController implements Initializable {
 
@@ -54,11 +54,7 @@ public class DashboardController implements Initializable {
     private Label totalMale_count;
     @FXML
     private PieChart totalEmployedChart;
-
-    private Connection connection = null;
-    private PreparedStatement preparedStatement = null;
-    private Statement statement = null;
-    private ResultSet resultSet = null;
+    private DashboardService dashboardService = new DashboardService();
 
     public void logout() throws IOException {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -93,47 +89,24 @@ public class DashboardController implements Initializable {
             currentStage.show();
          }
     }
-
     public void totalEmployed() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed";
-        connection = ConnectionUtil.getConnection();
-        int totalStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalStudents = dashboardService.getTotalEmployed();
         totalEmployed_count.setText(String.valueOf(totalStudents));
     }
     public void totalMaleEmployed() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE gjinia = 'Mashkull'";
-        connection = ConnectionUtil.getConnection();
-        int totalMaleStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalMaleStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalMaleStudents = dashboardService.getTotalMaleEmployed();
         totalMale_count.setText(String.valueOf(totalMaleStudents));
     }
     public void totalFemaleEmployed() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employed WHERE gjinia = 'Femër'";
-        connection = ConnectionUtil.getConnection();
-        int totalFemaleStudents = 0;
-        preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            totalFemaleStudents = resultSet.getInt("COUNT(id)");
-        }
+        int totalFemaleStudents = dashboardService.getTotalFemaleEmployed();
         totalFemale_count.setText(String.valueOf(totalFemaleStudents));
     }
     public void employedChart() throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT gjinia, COUNT(*) FROM employed GROUP BY gjinia");
+        Map<String, Integer> chartData = dashboardService.getEmployedChartData();
         totalEmployedChart.getData().clear();
-        while (resultSet.next()) {
-            String gjinia = resultSet.getString("gjinia");
-            int count = resultSet.getInt("COUNT(*)");
+        for (Map.Entry<String, Integer> entry : chartData.entrySet()) {
+            String gjinia = entry.getKey();
+            int count = entry.getValue();
             PieChart.Data data = new PieChart.Data(gjinia, count);
             totalEmployedChart.getData().add(data);
         }
